@@ -1,7 +1,7 @@
-package br.com.SGAL.Telas;
+package View;
 
 import javax.swing.JOptionPane;
-import br.com.SGAL.Telas.CadLivros;
+import View.CadLivros;
 
 public class Inicio extends javax.swing.JFrame {
 

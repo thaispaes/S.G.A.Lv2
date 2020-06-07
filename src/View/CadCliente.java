@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.SGAL.Telas;
+package View;
 
 import br.com.SGAL.dal.ModelConection;
 import javax.swing.JOptionPane;
