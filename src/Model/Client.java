@@ -21,8 +21,9 @@ public class Client {
     private String module;
     private String grade;
     private String course;
+    private String School;
 
-    public Client(Long id, String name, String registration, String email, String phone, String Address, String city, String module, String grade, String course) {
+    public Client(Long id, String name, String registration, String email, String phone, String Address, String city, String module, String grade, String course, String School) {
         this.id = id;
         this.name = name;
         this.registration = registration;
@@ -33,6 +34,7 @@ public class Client {
         this.module = module;
         this.grade = grade;
         this.course = course;
+        this.School = School;
     }
 
     public Client() {
@@ -117,7 +119,12 @@ public class Client {
     public void setCourse(String course) {
         this.course = course;
     }
-    
-    
-    
+
+    public String getSchool() {
+        return School;
+    }
+
+    public void setSchool(String School) {
+        this.School = School;
+    }
 }
