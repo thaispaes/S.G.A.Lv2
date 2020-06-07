@@ -5,6 +5,8 @@
  */
 package Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Samuel
@@ -22,6 +24,7 @@ public class Client {
     private String grade;
     private String course;
     private String School;
+    private ArrayList<Book> books;
 
     public Client(Long id, String name, String registration, String email, String phone, String Address, String city, String module, String grade, String course, String School) {
         this.id = id;
@@ -127,4 +130,15 @@ public class Client {
     public void setSchool(String School) {
         this.School = School;
     }
+
+    public ArrayList<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(ArrayList<Book> books) {
+        this.books = books;
+    }
+    
+    
+    
 }
