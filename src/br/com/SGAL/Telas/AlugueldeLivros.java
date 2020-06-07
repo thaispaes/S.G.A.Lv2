@@ -1,0 +1,394 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.com.SGAL.Telas;
+
+import br.com.SGAL.dal.ModelConection;
+import br.com.SGAL.table.model.data;
+import javax.swing.JOptionPane;
+import java.sql.*;
+import java.util.*;
+
+
+/**
+ *
+ * @author hylan
+ */
+public class AlugueldeLivros extends javax.swing.JInternalFrame {
+
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+        
+    /**
+     * Creates new form AlugueldeLivros
+     */
+    public AlugueldeLivros() {
+        conexao = ModelConection.Conector();
+        initComponents();
+        
+    }
+
+    public void setar_cliente() {
+      String sql ="select nomecli, fonecli, enderecocli, cidadecli from tbcliente where idcli=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtIdCliente.getText());
+            rs = pst.executeQuery();
+             if (rs.next()) {
+                txtSetNomeCliente.setText(rs.getString(1));
+                txtSetTelefoneCliente.setText(rs.getString(2));
+                txtSetEnderecoCliente.setText(rs.getString(3));
+                txtSetCidadeCliente.setText(rs.getString(4));
+            } else {
+                JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
+                txtIdCliente.setText(null);
+                txtSetNomeCliente.setText(null);
+                txtSetTelefoneCliente.setText(null);
+                txtSetEnderecoCliente.setText(null);
+                txtSetCidadeCliente.setText(null);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e);
+        }
+    }
+    public void setar_livro(){
+      String sql ="select nomelivro, autorlivro, editoratlivro, generolivro from tblivros where idlivro=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtIdLivro.getText());
+            rs = pst.executeQuery();
+            if(rs.next()){
+                txtSetNomeLivro.setText(rs.getString(1));
+                txtSetAutorLivro.setText(rs.getString(2));
+                txtSetEditoraLivro.setText(rs.getString(3));
+                txtSetGeneroLivro.setText(rs.getString(4));
+            }else{
+                JOptionPane.showMessageDialog(null, "Livro não encontrado!");
+                txtIdLivro.setText(null);
+                txtSetNomeLivro.setText(null);
+                txtSetAutorLivro.setText(null);
+                txtSetEditoraLivro.setText(null);
+                txtSetGeneroLivro.setText(null);
+            }
+        } catch (Exception e) {
+        }
+           
+    }
+    public void cadastrar(){
+    String sql = "inset into tbaluguel dataaluguel, idlivro, idcli values ?,?,?";
+        try {
+           int valor = Integer.parseInt(txtIdLivro.getText());
+           int valor2 = Integer.parseInt(txtIdCliente.getText());
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtDateFormat.getText());
+            pst.setInt(2, valor);
+            pst.setInt(3,valor2);
+            if((txtDateFormat.getText().isEmpty())||(txtIdLivro.getText().isEmpty())||(txtIdCliente.getText().isEmpty())){
+             JOptionPane.showMessageDialog(null,"Por favor digite os campos obrigatórios !");
+              txtDateFormat.setText(null);
+              txtIdCliente.setText(null);
+              txtIdLivro.setText(null);
+            }else{
+                int alugado = pst.executeUpdate();
+                if (alugado > 0) {
+              JOptionPane.showMessageDialog(null,"Alugel Realizado com sucesso! ");
+              txtDateFormat.setText(null);
+              txtIdCliente.setText(null);
+              txtIdLivro.setText(null);
+             }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e);
+        }
+    }
+    public void cancelar(){
+       int cancelar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja cancelar ?", "Cancelando Aluguel", JOptionPane.YES_NO_OPTION);
+        if ( JOptionPane.YES_OPTION == cancelar){
+            // Desativar os campos de cliente
+            txtSetNomeCliente.setText(null);
+            txtSetTelefoneCliente.setText(null);
+            txtSetEnderecoCliente.setText(null);
+            txtSetCidadeCliente.setText(null);
+            // Desativar os campos de livros
+            txtSetNomeLivro.setText(null);
+            txtSetAutorLivro.setText(null);
+            txtSetEditoraLivro.setText(null);
+            txtSetGeneroLivro.setText(null);
+            // Desativar os campos Idcliente e IdLivro
+            txtIdCliente.setText(null);
+            txtIdLivro.setText(null);
+            txtDateFormat.setText(null);
+        }
+    }
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        txtIdCliente = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        btnCanselarAluguel = new javax.swing.JButton();
+        txtIdLivro = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        txtSetNomeLivro = new javax.swing.JLabel();
+        txtSetAutorLivro = new javax.swing.JLabel();
+        txtSetEditoraLivro = new javax.swing.JLabel();
+        txtSetGeneroLivro = new javax.swing.JLabel();
+        txtSetNomeCliente = new javax.swing.JLabel();
+        txtSetTelefoneCliente = new javax.swing.JLabel();
+        txtSetEnderecoCliente = new javax.swing.JLabel();
+        txtSetCidadeCliente = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        txtDateFormat = new javax.swing.JFormattedTextField();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+
+        jLabel1.setText("Id do Cliente:");
+
+        txtIdCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIdClienteKeyReleased(evt);
+            }
+        });
+
+        jButton1.setText("Concluido");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Id do Livro:");
+
+        jLabel3.setText("Nome:");
+
+        jLabel5.setText("Telefone:");
+
+        jLabel6.setText("Endereço:");
+
+        jLabel9.setText("Livro:");
+
+        jLabel11.setText("Autor:");
+
+        jLabel12.setText("Editora:");
+
+        btnCanselarAluguel.setText("Cancelar!");
+        btnCanselarAluguel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCanselarAluguelActionPerformed(evt);
+            }
+        });
+
+        txtIdLivro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIdLivroKeyReleased(evt);
+            }
+        });
+
+        jLabel7.setText("Cidade:");
+
+        jLabel13.setText("Gênero:");
+
+        jLabel15.setText("Data Aluguel:");
+
+        try {
+            txtDateFormat.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSetNomeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel5))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel7)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtSetTelefoneCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtSetCidadeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtSetEnderecoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 152, Short.MAX_VALUE)
+                        .addComponent(btnCanselarAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(14, 14, 14)
+                                        .addComponent(jLabel2)
+                                        .addComponent(txtIdLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDateFormat, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(7, 7, 7)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel11)))
+                                    .addComponent(jLabel13)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel12)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSetEditoraLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                            .addComponent(txtSetGeneroLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                            .addComponent(txtSetNomeLivro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtSetAutorLivro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(0, 152, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(txtSetNomeLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtSetAutorLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtSetEditoraLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtSetGeneroLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(txtDateFormat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtIdLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel13)))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtSetNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addComponent(txtSetTelefoneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtSetEnderecoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtSetCidadeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCanselarAluguel, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(24, 24, 24))))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCanselarAluguelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanselarAluguelActionPerformed
+        cancelar();
+    }//GEN-LAST:event_btnCanselarAluguelActionPerformed
+
+    private void txtIdClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdClienteKeyReleased
+        setar_cliente();
+    }//GEN-LAST:event_txtIdClienteKeyReleased
+
+    private void txtIdLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdLivroKeyReleased
+        setar_livro();
+    }//GEN-LAST:event_txtIdLivroKeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        cadastrar();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCanselarAluguel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JFormattedTextField txtDateFormat;
+    private javax.swing.JTextField txtIdCliente;
+    private javax.swing.JTextField txtIdLivro;
+    private javax.swing.JLabel txtSetAutorLivro;
+    private javax.swing.JLabel txtSetCidadeCliente;
+    private javax.swing.JLabel txtSetEditoraLivro;
+    private javax.swing.JLabel txtSetEnderecoCliente;
+    private javax.swing.JLabel txtSetGeneroLivro;
+    private javax.swing.JLabel txtSetNomeCliente;
+    private javax.swing.JLabel txtSetNomeLivro;
+    private javax.swing.JLabel txtSetTelefoneCliente;
+    // End of variables declaration//GEN-END:variables
+}
