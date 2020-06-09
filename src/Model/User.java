@@ -37,6 +37,9 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+    public void setId(int id) {
+        this.id = new Long(id);
+    }
 
     public String getName() {
         return name;
