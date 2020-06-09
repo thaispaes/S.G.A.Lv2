@@ -5,7 +5,7 @@
  */
 package View;
 
-import br.com.SGAL.dal.ModelConection;
+import JDBC.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +26,7 @@ public class LivAlu extends javax.swing.JInternalFrame {
      */
     public LivAlu() {
         initComponents();
-         conexao = ModelConection.Conector();
+         conexao = ConnectionFactory.getConnection();
     }
 private void pesquisar_cliente() {
         String sql = "select * from tbcliente  where nomecli like ?";

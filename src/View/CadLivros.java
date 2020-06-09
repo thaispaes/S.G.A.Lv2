@@ -6,7 +6,7 @@
 package View;
 
 import java.sql.*;
-import br.com.SGAL.dal.ModelConection;
+import JDBC.ConnectionFactory;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -124,7 +124,7 @@ public class CadLivros extends javax.swing.JInternalFrame {
     }
 
     public CadLivros() {
-        conexao = ModelConection.Conector();
+        conexao = ConnectionFactory.getConnection();
         initComponents();
     }
 

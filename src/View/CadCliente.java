@@ -5,7 +5,7 @@
  */
 package View;
 
-import br.com.SGAL.dal.ModelConection;
+import JDBC.ConnectionFactory;
 import javax.swing.JOptionPane;
 import java.sql.*;
 
@@ -16,7 +16,7 @@ public class CadCliente extends javax.swing.JInternalFrame {
     ResultSet rs = null;
 
     public CadCliente() {
-        conexao = ModelConection.Conector();
+        conexao = ConnectionFactory.getConnection();
         initComponents();
     }
 

@@ -7,7 +7,7 @@ package View;
 
 import java.sql.*;
 
-import br.com.SGAL.dal.ModelConection;
+import JDBC.ConnectionFactory;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
@@ -52,7 +52,7 @@ public class Loguin extends javax.swing.JFrame {
 
     public Loguin() {
         initComponents();
-        conexao = ModelConection.Conector();
+        conexao = ConnectionFactory.getConnection();
         lblConexao.setText("Desconectado");
         if (conexao != null) {
             lblConexao.setText("Conectado");

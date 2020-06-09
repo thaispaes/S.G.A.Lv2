@@ -7,7 +7,7 @@ package View;
 
 import java.sql.*;
 import javax.swing.JOptionPane;
-import br.com.SGAL.dal.ModelConection;
+import JDBC.ConnectionFactory;
 
 public class CadUser extends javax.swing.JInternalFrame {
 
@@ -19,7 +19,7 @@ public class CadUser extends javax.swing.JInternalFrame {
     
     
     public CadUser() {
-        conexao = ModelConection.Conector();
+        conexao = ConnectionFactory.getConnection();
         initComponents();
 
     }

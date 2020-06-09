@@ -5,7 +5,7 @@
  */
 package View;
 
-import br.com.SGAL.dal.ModelConection;
+import JDBC.ConnectionFactory;
 import br.com.SGAL.table.model.data;
 import javax.swing.JOptionPane;
 import java.sql.*;
@@ -26,7 +26,7 @@ public class AlugueldeLivros extends javax.swing.JInternalFrame {
      * Creates new form AlugueldeLivros
      */
     public AlugueldeLivros() {
-        conexao = ModelConection.Conector();
+        conexao = ConnectionFactory.getConnection();
         initComponents();
         
     }
