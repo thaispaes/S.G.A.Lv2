@@ -18,6 +18,36 @@ USE `dbbiblio`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `tb_book`
+--
+
+DROP TABLE IF EXISTS `tb_book`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_book` (
+  `id_book` int(11) NOT NULL AUTO_INCREMENT,
+  `book_name` varchar(100) NOT NULL,
+  `book_author` varchar(100) NOT NULL,
+  `book_publisher` varchar(100) NOT NULL,
+  `quantity_of_book` int(11) NOT NULL,
+  `image_book` varbinary(55530) NOT NULL,
+  `genre` varchar(45) DEFAULT NULL,
+  `acquired` varchar(11) NOT NULL,
+  PRIMARY KEY (`id_book`),
+  UNIQUE KEY `book_publisher` (`book_publisher`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_book`
+--
+
+LOCK TABLES `tb_book` WRITE;
+/*!40000 ALTER TABLE `tb_book` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_book` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tb_user`
 --
 
@@ -65,7 +95,7 @@ CREATE TABLE `tbaluguel` (
   PRIMARY KEY (`idaluguel`),
   KEY `idlivro` (`idlivro`),
   KEY `idcli` (`idcli`),
-  CONSTRAINT `tbaluguel_ibfk_1` FOREIGN KEY (`idlivro`) REFERENCES `tblivros` (`idlivro`),
+  CONSTRAINT `tbaluguel_ibfk_1` FOREIGN KEY (`idlivro`) REFERENCES `tb_book` (`id_book`),
   CONSTRAINT `tbaluguel_ibfk_2` FOREIGN KEY (`idcli`) REFERENCES `tbcliente` (`idcli`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -112,34 +142,6 @@ LOCK TABLES `tbcliente` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `tblivros`
---
-
-DROP TABLE IF EXISTS `tblivros`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tblivros` (
-  `idlivro` int(11) NOT NULL AUTO_INCREMENT,
-  `nomelivro` varchar(100) NOT NULL,
-  `autorlivro` varchar(100) NOT NULL,
-  `editoratlivro` varchar(100) NOT NULL,
-  `quantidadelivro` varchar(100) DEFAULT NULL,
-  `imagelivro` longblob,
-  `genero` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`idlivro`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tblivros`
---
-
-LOCK TABLES `tblivros` WRITE;
-/*!40000 ALTER TABLE `tblivros` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tblivros` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping events for database 'dbbiblio'
 --
 
@@ -156,4 +158,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-10 15:52:23
+-- Dump completed on 2020-06-10 16:46:26
