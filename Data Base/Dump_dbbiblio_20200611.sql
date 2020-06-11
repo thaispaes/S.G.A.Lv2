@@ -48,6 +48,77 @@ LOCK TABLES `tb_book` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tb_rent`
+--
+
+DROP TABLE IF EXISTS `tb_rent`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_rent` (
+  `id_rent` int(11) NOT NULL AUTO_INCREMENT,
+  `rented_date` date NOT NULL,
+  `id_of_book` int(11) NOT NULL,
+  `id_of_client` int(11) NOT NULL,
+  `return_date` date NOT NULL,
+  `returned` tinyint(1) NOT NULL,
+  `penality` double DEFAULT NULL,
+  `observation` text,
+  PRIMARY KEY (`id_rent`),
+  KEY `idlivro` (`id_of_book`),
+  KEY `idcli` (`id_of_client`),
+  CONSTRAINT `tb_rent_ibfk_1` FOREIGN KEY (`id_of_book`) REFERENCES `tb_book` (`id_book`),
+  CONSTRAINT `tb_rent_ibfk_2` FOREIGN KEY (`id_of_client`) REFERENCES `tb_student` (`id_client`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_rent`
+--
+
+LOCK TABLES `tb_rent` WRITE;
+/*!40000 ALTER TABLE `tb_rent` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_rent` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tb_student`
+--
+
+DROP TABLE IF EXISTS `tb_student`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_student` (
+  `id_client` int(11) NOT NULL AUTO_INCREMENT,
+  `student_name` varchar(100) NOT NULL,
+  `student_registration` varchar(100) NOT NULL,
+  `student_email` tinytext,
+  `student_phone` varchar(30) DEFAULT NULL,
+  `student_CEP` tinytext,
+  `student_city` tinytext NOT NULL,
+  `student_module` varchar(45) NOT NULL,
+  `student_grade` varchar(100) NOT NULL,
+  `student_course` varchar(100) DEFAULT NULL,
+  `student_school` tinytext NOT NULL,
+  `student_shift` varchar(25) NOT NULL,
+  `student_login` varchar(100) NOT NULL,
+  `student_password` varchar(100) NOT NULL,
+  `student_image_perfil` varbinary(55530) DEFAULT NULL,
+  PRIMARY KEY (`id_client`),
+  UNIQUE KEY `senha` (`student_password`),
+  UNIQUE KEY `student_password` (`student_password`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_student`
+--
+
+LOCK TABLES `tb_student` WRITE;
+/*!40000 ALTER TABLE `tb_student` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_student` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tb_user`
 --
 
@@ -57,14 +128,18 @@ DROP TABLE IF EXISTS `tb_user`;
 CREATE TABLE `tb_user` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(100) NOT NULL,
-  `login` varchar(100) NOT NULL,
+  `user_login` varchar(100) NOT NULL,
   `user_password` varchar(100) NOT NULL,
-  `access_level` int(11) NOT NULL,
-  `image` varbinary(55530) NOT NULL,
-  `email` tinytext,
+  `user_access_level` int(11) NOT NULL,
+  `user_image_perfil` varbinary(55530) NOT NULL,
+  `user_email` tinytext,
+  `user_address` tinytext NOT NULL,
+  `user_cep` varchar(30) DEFAULT NULL,
+  `user_phone` varchar(30) DEFAULT NULL,
+  `user_school` varchar(100) NOT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `user_password` (`user_password`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,71 +149,6 @@ CREATE TABLE `tb_user` (
 LOCK TABLES `tb_user` WRITE;
 /*!40000 ALTER TABLE `tb_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tb_user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tbaluguel`
---
-
-DROP TABLE IF EXISTS `tbaluguel`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbaluguel` (
-  `idaluguel` bigint(20) NOT NULL AUTO_INCREMENT,
-  `dataaluguel` date DEFAULT NULL,
-  `idlivro` int(11) DEFAULT NULL,
-  `idcli` int(11) DEFAULT NULL,
-  `alugado` date DEFAULT NULL,
-  `prazo` date DEFAULT NULL,
-  `entregue` tinyint(1) DEFAULT NULL,
-  `penalidade` double DEFAULT NULL,
-  PRIMARY KEY (`idaluguel`),
-  KEY `idlivro` (`idlivro`),
-  KEY `idcli` (`idcli`),
-  CONSTRAINT `tbaluguel_ibfk_1` FOREIGN KEY (`idlivro`) REFERENCES `tb_book` (`id_book`),
-  CONSTRAINT `tbaluguel_ibfk_2` FOREIGN KEY (`idcli`) REFERENCES `tbcliente` (`idcli`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbaluguel`
---
-
-LOCK TABLES `tbaluguel` WRITE;
-/*!40000 ALTER TABLE `tbaluguel` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbaluguel` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tbcliente`
---
-
-DROP TABLE IF EXISTS `tbcliente`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbcliente` (
-  `idcli` int(11) NOT NULL AUTO_INCREMENT,
-  `nomecli` varchar(100) NOT NULL,
-  `matriculacli` varchar(100) DEFAULT NULL,
-  `emailcli` varchar(100) DEFAULT NULL,
-  `fonecli` varchar(100) NOT NULL,
-  `enderecocli` varchar(200) DEFAULT NULL,
-  `cidadecli` varchar(70) NOT NULL,
-  `modulocli` varchar(100) DEFAULT NULL,
-  `seriecli` varchar(50) DEFAULT NULL,
-  `cursocli` varchar(100) DEFAULT NULL,
-  `escola` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`idcli`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbcliente`
---
-
-LOCK TABLES `tbcliente` WRITE;
-/*!40000 ALTER TABLE `tbcliente` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbcliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -158,4 +168,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-10 16:46:26
+-- Dump completed on 2020-06-11 15:46:48
