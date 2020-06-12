@@ -15,7 +15,8 @@ public class User {
     private String name;
     private String login;
     private String password;
-    private String type;
+    private String accessLevel;
+    private ImageFile perfilImage;
     public static final String TYPE_ADM = "ADM";
     public static final String TYPE_USER = "USER";
 
@@ -24,7 +25,7 @@ public class User {
         this.name = name;
         this.login = login;
         this.password = password;
-        this.type = type;
+        this.accessLevel = type;
     }
 
     public User() {
@@ -65,12 +66,12 @@ public class User {
         this.password = password;
     }
 
-    public String getType() {
-        return type;
+    public String getAccessLevel() {
+        return accessLevel;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setAccessLevel(String accessLevel) {
+        this.accessLevel = accessLevel;
     }
     
 }

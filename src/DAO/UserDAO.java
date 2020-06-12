@@ -32,7 +32,7 @@ public class UserDAO {
             statement.setString(1, user.getName());
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getPassword());
-            statement.setString(4, user.getType());
+            statement.setString(4, user.getAccessLevel());
             
             statement.execute();
             
@@ -60,7 +60,7 @@ public class UserDAO {
             statement.setString(1, user.getName());
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getPassword());
-            statement.setString(4, user.getType());
+            statement.setString(4, user.getAccessLevel());
             statement.setInt(5, user.getId().intValue());
             
             statement.execute();
@@ -123,7 +123,7 @@ public class UserDAO {
                 user.setName(result.getString("nome"));
                 user.setLogin(result.getString("loguin"));
                 user.setPassword(result.getString("senha"));
-                user.setType(result.getString("tipo"));
+                user.setAccessLevel(result.getString("tipo"));
                 
                 users.add(user);
             }
@@ -163,7 +163,7 @@ public class UserDAO {
                 user.setName(result.getString("nome"));
                 user.setLogin(result.getString("loguin"));
                 user.setPassword(result.getString("senha"));
-                user.setType(result.getString("tipo"));
+                user.setAccessLevel(result.getString("tipo"));
                 
                 users.add(user);
 
