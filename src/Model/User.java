@@ -15,19 +15,46 @@ public class User {
     private String name;
     private String login;
     private String password;
-    private String accessLevel;
+    private int accessLevel;
     private ImageFile perfilImage;
-    public static final String TYPE_ADM = "ADM";
-    public static final String TYPE_USER = "USER";
+    private String email;
+    private String address;
+    private String CEP;
+    private String phone;
+    private String school;
+    public static final int ACCESS_MAX = 3;
+    public static final int ACCESS_MED = 2;
+    public static final int ACCESS_MIN = 1;
 
-    public User(Long id, String name, String login, String password, String type) {
+    public User(Long id, String name, String login, String password, int accessLevel, ImageFile perfilImage, String email, String address, String CEP, String phone, String school) {
         this.id = id;
         this.name = name;
         this.login = login;
         this.password = password;
-        this.accessLevel = type;
+        this.accessLevel = accessLevel;
+        this.perfilImage = perfilImage;
+        this.email = email;
+        this.address = address;
+        this.CEP = CEP;
+        this.phone = phone;
+        this.school = school;
     }
 
+    public User(String name, String login, String password, int accessLevel, ImageFile perfilImage, String email, String address, String CEP, String phone, String school) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.accessLevel = accessLevel;
+        this.perfilImage = perfilImage;
+        this.email = email;
+        this.address = address;
+        this.CEP = CEP;
+        this.phone = phone;
+        this.school = school;
+    }
+
+    
+    
     public User() {
     }
 
@@ -66,12 +93,60 @@ public class User {
         this.password = password;
     }
 
-    public String getAccessLevel() {
+    public int getAccessLevel() {
         return accessLevel;
     }
 
-    public void setAccessLevel(String accessLevel) {
+    public void setAccessLevel(int accessLevel) {
         this.accessLevel = accessLevel;
+    }
+
+    public ImageFile getPerfilImage() {
+        return perfilImage;
+    }
+
+    public void setPerfilImage(ImageFile perfilImage) {
+        this.perfilImage = perfilImage;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCEP() {
+        return CEP;
+    }
+
+    public void setCEP(String CEP) {
+        this.CEP = CEP;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
     }
     
 }
