@@ -41,7 +41,7 @@ public class User {
         this.CEP = CEP;
         this.phone = phone;
         this.school = school;
-        this.ImageName = perfilImage.getName();        
+        this.ImageName = perfilImage.getFile().getName();        
     }
 
     public User(String name, String login, String password, int accessLevel, ImageFile perfilImage, String email, String address, String CEP, String phone, String school) {
@@ -55,14 +55,13 @@ public class User {
         this.CEP = CEP;
         this.phone = phone;
         this.school = school;
-        this.ImageName = perfilImage.getName();
+        this.ImageName = perfilImage.getFile().getName();
     }
 
     
     
     public User() {
-        this.perfilImage = new ImageFile("");
-        this.ImageName = perfilImage.getName();
+        
     }
 
     public Long getId() {

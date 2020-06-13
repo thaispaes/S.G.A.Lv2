@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class UserDAO {
@@ -36,8 +38,13 @@ public class UserDAO {
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getPassword());
             statement.setInt(4, user.getAccessLevel());
-            statement.setBinaryStream(5, user.getPerfilImage().getInput());
-            statement.setString(6, user.getPerfilImage().getFile().getName());
+            
+            if(user.getPerfilImage() != null){
+                
+                statement.setBinaryStream(5, user.getPerfilImage().getInput());
+                statement.setString(6, user.getPerfilImage().getFile().getName());
+            }
+            
             statement.setString(7, user.getEmail());
             statement.setString(8, user.getAddress());
             statement.setString(9, user.getCEP());
@@ -71,8 +78,11 @@ public class UserDAO {
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getPassword());
             statement.setInt(4, user.getAccessLevel());
-            statement.setBinaryStream(5, user.getPerfilImage().getInput());
-            statement.setString(6, user.getPerfilImage().getFile().getName());
+            
+            if(user.getPerfilImage() != null){
+                statement.setBinaryStream(5, user.getPerfilImage().getInput());
+                statement.setString(6, user.getPerfilImage().getFile().getName());
+            }
             statement.setString(7, user.getEmail());
             statement.setString(8, user.getAddress());
             statement.setString(9, user.getCEP());
@@ -150,6 +160,11 @@ public class UserDAO {
                               
                 }
                
+                user.setEmail(result.getString("user_email"));
+                user.setAddress(result.getString("user_address"));
+                user.setCEP(result.getString("user_cep"));
+                user.setPhone(result.getString("user_phone"));
+                user.setSchool(result.getString("user_school"));
                 
                 users.add(user);
             }
@@ -185,11 +200,25 @@ public class UserDAO {
                 
                User user = new User();
                 
-                user.setId(result.getInt("id"));
-                user.setName(result.getString("nome"));
-                user.setLogin(result.getString("loguin"));
-                user.setPassword(result.getString("senha"));
-                user.setAccessLevel(result.getString("tipo"));
+                user.setId(result.getInt("id_user"));
+                user.setName(result.getString("user_name"));
+                user.setLogin(result.getString("user_login"));
+                user.setPassword(result.getString("user_password"));
+                user.setAccessLevel(result.getInt("user_access_level"));
+               
+                String imageName = result.getString("user_image_name");
+                
+                if(ImageFile.exist(imageName) == false){
+                    
+                    user.setPerfilImage(result.getBinaryStream("user_image_perfil"), imageName);
+                              
+                }
+               
+                user.setEmail(result.getString("user_email"));
+                user.setAddress(result.getString("user_address"));
+                user.setCEP(result.getString("user_cep"));
+                user.setPhone(result.getString("user_phone"));
+                user.setSchool(result.getString("user_school"));
                 
                 users.add(user);
 
@@ -202,6 +231,33 @@ public class UserDAO {
               ConnectionFactory.closeConnection(connection, statement,result);
           }
        return users;
+    }
+    
+    public boolean exist(String pesquisa){
+      
+            conectar();
+            PreparedStatement statement = null;
+            ResultSet result = null;
+            sql = "SELECT * FROM tbusuario WHERE nome LIKE ? or loguin LIKE ?;";
+            boolean exist = false;
+            
+            
+        try {
+            
+            statement = connection.prepareStatement(sql);
+            
+            statement.setString(1, "%"+pesquisa+"%");
+            statement.setString(2, "%"+pesquisa+"%");
+            
+            result = statement.executeQuery();
+            
+            exist = result.next();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return exist;
     }
     
     private void conectar() {
