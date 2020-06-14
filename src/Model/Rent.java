@@ -13,14 +13,14 @@ import java.util.Date;
  */
 public class Rent {
     
-    private Client client;
+    private Student client;
     private Book book;
     private Date rented;
     private Date term;
     private boolean delivered;
     private double penality;
 
-    public Rent(Client client, Book book, Date rented, Date term, boolean delivered, double penality) {
+    public Rent(Student client, Book book, Date rented, Date term, boolean delivered, double penality) {
         this.client = client;
         this.book = book;
         this.rented = rented;
@@ -32,11 +32,11 @@ public class Rent {
     public Rent() {
     }
 
-    public Client getClient() {
+    public Student getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(Student client) {
         this.client = client;
     }
 

@@ -19,7 +19,6 @@ public class User {
     private String password;
     private int accessLevel;
     private ImageFile perfilImage;
-    private String ImageName;
     private String email;
     private String address;
     private String CEP;
@@ -40,8 +39,7 @@ public class User {
         this.address = address;
         this.CEP = CEP;
         this.phone = phone;
-        this.school = school;
-        this.ImageName = perfilImage.getFile().getName();        
+        this.school = school;     
     }
 
     public User(String name, String login, String password, int accessLevel, ImageFile perfilImage, String email, String address, String CEP, String phone, String school) {
@@ -55,13 +53,12 @@ public class User {
         this.CEP = CEP;
         this.phone = phone;
         this.school = school;
-        this.ImageName = perfilImage.getFile().getName();
     }
 
     
     
     public User() {
-        
+        perfilImage = new ImageFile("");
     }
 
     public Long getId() {

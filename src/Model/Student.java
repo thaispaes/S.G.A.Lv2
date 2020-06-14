@@ -11,10 +11,14 @@ import java.util.ArrayList;
  *
  * @author Samuel
  */
-public class Client {
+public class Student {
     
     private Long id;
     private String name;
+    private String CEP;
+    private String login;
+    private String password;
+    private ImageFile imagePerfil;
     private String registration;
     private String email;
     private String phone;
@@ -24,11 +28,16 @@ public class Client {
     private String grade;
     private String course;
     private String School;
-    private ArrayList<Book> books;
+    private String shift;
+    private ArrayList<Rent> rents;
 
-    public Client(Long id, String name, String registration, String email, String phone, String Address, String city, String module, String grade, String course, String School) {
+    public Student(Long id, String name, String CEP, String login, String password, ImageFile imagePerfil, String registration, String email, String phone, String Address, String city, String module, String grade, String course, String School, String shift, ArrayList<Rent> rents) {
         this.id = id;
         this.name = name;
+        this.CEP = CEP;
+        this.login = login;
+        this.password = password;
+        this.imagePerfil = imagePerfil;
         this.registration = registration;
         this.email = email;
         this.phone = phone;
@@ -38,9 +47,33 @@ public class Client {
         this.grade = grade;
         this.course = course;
         this.School = School;
+        this.shift = shift;
+        this.rents = rents;
     }
 
-    public Client() {
+    public Student(String name, String CEP, String login, String password, ImageFile imagePerfil, String registration, String email, String phone, String Address, String city, String module, String grade, String course, String School, String shift, ArrayList<Rent> rents) {
+        this.name = name;
+        this.CEP = CEP;
+        this.login = login;
+        this.password = password;
+        this.imagePerfil = imagePerfil;
+        this.registration = registration;
+        this.email = email;
+        this.phone = phone;
+        this.Address = Address;
+        this.city = city;
+        this.module = module;
+        this.grade = grade;
+        this.course = course;
+        this.School = School;
+        this.shift = shift;
+        this.rents = rents;
+    }
+
+    public Student() {
+        
+        imagePerfil = new ImageFile("");
+        
     }
 
     public Long getId() {
@@ -57,6 +90,38 @@ public class Client {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCEP() {
+        return CEP;
+    }
+
+    public void setCEP(String CEP) {
+        this.CEP = CEP;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public ImageFile getImagePerfil() {
+        return imagePerfil;
+    }
+
+    public void setImagePerfil(ImageFile imagePerfil) {
+        this.imagePerfil = imagePerfil;
     }
 
     public String getRegistration() {
@@ -131,14 +196,20 @@ public class Client {
         this.School = School;
     }
 
-    public ArrayList<Book> getBooks() {
-        return books;
+    public String getShift() {
+        return shift;
     }
 
-    public void setBooks(ArrayList<Book> books) {
-        this.books = books;
+    public void setShift(String shift) {
+        this.shift = shift;
     }
-    
-    
+
+    public ArrayList<Rent> getRents() {
+        return rents;
+    }
+
+    public void setRents(ArrayList<Rent> rents) {
+        this.rents = rents;
+    }
     
 }
