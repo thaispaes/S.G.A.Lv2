@@ -16,7 +16,6 @@ public class Student extends User{
     
     private ImageFile imagePerfil;
     private String registration;
-    private String city;
     private String module;
     private String grade;
     private String course;
@@ -24,11 +23,10 @@ public class Student extends User{
     private String shift;
     private ArrayList<Rent> rents;
 
-    public Student(ImageFile imagePerfil, String registration, String city, String module, String grade, String course, String School, String shift, ArrayList<Rent> rents, Long id, String name, String login, String password, ImageFile perfilImage, String email, String address, String CEP, String phone) {
+    public Student(ImageFile imagePerfil, String registration, String module, String grade, String course, String School, String shift, ArrayList<Rent> rents, Long id, String name, String login, String password, ImageFile perfilImage, String email, String address, String CEP, String phone) {
         super(id, name, login, password, perfilImage, email, address, CEP, phone);
         this.imagePerfil = imagePerfil;
         this.registration = registration;
-        this.city = city;
         this.module = module;
         this.grade = grade;
         this.course = course;
@@ -37,11 +35,10 @@ public class Student extends User{
         this.rents = rents;
     }
 
-    public Student(ImageFile imagePerfil, String registration, String city, String module, String grade, String course, String School, String shift, ArrayList<Rent> rents, String name, String login, String password, ImageFile perfilImage, String email, String address, String CEP, String phone) {
+    public Student(ImageFile imagePerfil, String registration, String module, String grade, String course, String School, String shift, ArrayList<Rent> rents, String name, String login, String password, ImageFile perfilImage, String email, String address, String CEP, String phone) {
         super(name, login, password, perfilImage, email, address, CEP, phone);
         this.imagePerfil = imagePerfil;
         this.registration = registration;
-        this.city = city;
         this.module = module;
         this.grade = grade;
         this.course = course;
@@ -62,14 +59,6 @@ public class Student extends User{
 
     public void setRegistration(String registration) {
         this.registration = registration;
-    }
-    
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public String getModule() {

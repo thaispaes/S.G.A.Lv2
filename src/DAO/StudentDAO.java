@@ -33,7 +33,7 @@ public class StudentDAO {
         
         conectar();
         PreparedStatement statement = null;
-        sql = "INSERT INTO tb_student (student_name, student_login, student_password, student_registration, student_image_perfil, student_image_name , student_email , student_CEP, student_phone, student_school, student_city, student_module, student_grade, student_course, student_shift) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        sql = "INSERT INTO tb_student (student_name, student_login, student_password, student_registration, student_image_perfil, student_image_name , student_email , student_CEP, student_phone, student_school, student_Address, student_module, student_grade, student_course, student_shift) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
           try {
               
@@ -44,17 +44,17 @@ public class StudentDAO {
             statement.setString(3, student.getPassword());
             statement.setString(4, student.getRegistration());
             
-            if(student.getImagePerfil()!= null){
+            if(student.getPerfilImage()!= null){
                 
-                statement.setBinaryStream(5, student.getImagePerfil().getInput());
-                statement.setString(6, student.getImagePerfil().getFile().getName());
+                statement.setBinaryStream(5, student.getPerfilImage().getInput());
+                statement.setString(6, student.getPerfilImage().getFile().getName());
             }
             
             statement.setString(7, student.getEmail());
             statement.setString(8, student.getCEP());
             statement.setString(9, student.getPhone());
             statement.setString(10, student.getSchool());
-            statement.setString(11, student.getCity());
+            statement.setString(11, student.getAddress());
             statement.setString(12, student.getModule());
             statement.setString(13, student.getGrade());
             statement.setString(14, student.getCourse());
@@ -77,7 +77,7 @@ public class StudentDAO {
         
     conectar();
         PreparedStatement statement = null;
-        sql = "UPDATE tb_student student_name = ? , student_login = ?, student_password = ?, student_registration = ?, student_image_perfil = ?, student_image_name = ?, student_email = ?,  student_CEP = ?, student_phone = ?, student_school = ?, student_city = ?, student_module = ?, student_grade = ?, student_course = ?, student_shift = ? WHERE id_student = ?;";
+        sql = "UPDATE tb_student student_name = ? , student_login = ?, student_password = ?, student_registration = ?, student_image_perfil = ?, student_image_name = ?, student_email = ?,  student_CEP = ?, student_phone = ?, student_school = ?, student_Address = ?, student_module = ?, student_grade = ?, student_course = ?, student_shift = ? WHERE id_student = ?;";
         
            
           try {
@@ -89,17 +89,17 @@ public class StudentDAO {
             statement.setString(3, student.getPassword());
             statement.setString(4, student.getRegistration());
             
-            if(student.getImagePerfil()!= null){
+            if(student.getPerfilImage()!= null){
                 
-                statement.setBinaryStream(5, student.getImagePerfil().getInput());
-                statement.setString(6, student.getImagePerfil().getFile().getName());
+                statement.setBinaryStream(5, student.getPerfilImage().getInput());
+                statement.setString(6, student.getPerfilImage().getFile().getName());
             }
             
             statement.setString(7, student.getEmail());
             statement.setString(8, student.getCEP());
             statement.setString(9, student.getPhone());
             statement.setString(10, student.getSchool());
-            statement.setString(11, student.getCity());
+            statement.setString(11, student.getAddress());
             statement.setString(12, student.getModule());
             statement.setString(13, student.getGrade());
             statement.setString(14, student.getCourse());
