@@ -5,13 +5,14 @@
  */
 package Model;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
  *
  * @author Samuel
  */
-public class Student {
+public class Student{
     
     private Long id;
     private String name;
@@ -83,6 +84,10 @@ public class Student {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    public void setId(int id) {
+        this.id = new Long(id);
+    }
 
     public String getName() {
         return name;
@@ -122,6 +127,12 @@ public class Student {
 
     public void setImagePerfil(ImageFile imagePerfil) {
         this.imagePerfil = imagePerfil;
+    }
+    
+    public void setImagePerfil(InputStream inputS, String name) {
+        
+        this.imagePerfil = new ImageFile(inputS, name);
+        
     }
 
     public String getRegistration() {

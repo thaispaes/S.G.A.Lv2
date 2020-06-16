@@ -7,7 +7,7 @@ package DAO;
 
 import JDBC.ConnectionFactory;
 import Model.ImageFile;
-import Model.User;
+import Model.Manager;
 import com.mysql.jdbc.Connection;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
@@ -19,16 +19,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class UserDAO {
+public class ManagerDAO {
     
     private Connection connection;
     private String sql;
+    private static Manager loggedUser;
 
-    public boolean insert(User user){
+    public boolean insert(Manager user){
         
-        conectar();
+        connect();
         PreparedStatement statement = null;
-        sql = "INSERT INTO tbusuario (user_name, user_login, user_password, user_access_level, user_image_perfil, user_image_name , user_email, user_address, user_cep, user_phone, user_school) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+        sql = "INSERT INTO tb_user (user_name, user_login, user_password, user_access_level, user_image_perfil, user_image_name , user_email, user_address, user_cep, user_phone, user_school) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 
           try {
               
@@ -63,11 +64,11 @@ public class UserDAO {
         
     }
     
-    public boolean update(User user){
+    public boolean update(Manager user){
         
-    conectar();
+    connect();
         PreparedStatement statement = null;
-        sql = "UPDATE tbusuario user_name = ?, user_login = ?, user_password = ?, user_access_level = ?, user_image_perfil = ?,user_image_name = ? , user_email = ?, user_address = ?, user_cep = ?, user_phone = ?, user_school = ? WHERE id_user = ?;";
+        sql = "UPDATE tb_user user_name = ?, user_login = ?, user_password = ?, user_access_level = ?, user_image_perfil = ?,user_image_name = ? , user_email = ?, user_address = ?, user_cep = ?, user_phone = ?, user_school = ? WHERE id_user = ?;";
         
            
           try {
@@ -103,11 +104,11 @@ public class UserDAO {
     }
 
     
-    public boolean delet(User user){
+    public boolean delet(Manager user){
             
-    conectar();
+    connect();
         PreparedStatement statement = null;
-        sql = "DELETE FROM tbusuario WHERE id_user = ?;";
+        sql = "DELETE FROM tb_user WHERE id_user = ?;";
         
 
           try {
@@ -128,13 +129,13 @@ public class UserDAO {
     }
     
 
-    public List<User> selectAll(){
+    public List<Manager> selectAll(){
       
-        conectar();
+        connect();
         PreparedStatement statement = null;
         ResultSet result = null;
         sql = "SELECT * FROM tb_user;";
-        List<User> users = new ArrayList<>();
+        List<Manager> users = new ArrayList<>();
    
           try {
               
@@ -144,7 +145,7 @@ public class UserDAO {
             
             while(result.next()){
                 
-                User user = new User();
+                Manager user = new Manager();
                 
                 user.setId(result.getInt("id_user"));
                 user.setName(result.getString("user_name"));
@@ -178,13 +179,13 @@ public class UserDAO {
        return users;
     }
     
-    public List<User> search(String pesquisa){
+    public List<Manager> search(String pesquisa){
       
-        conectar();
+        connect();
         PreparedStatement statement = null;
         ResultSet result = null;
-        sql = "SELECT * FROM tbusuario WHERE nome LIKE ? or loguin LIKE ?;";
-        List<User> users = new ArrayList<>();
+        sql = "SELECT * FROM tb_user WHERE user_name LIKE ? or login LIKE ?;";
+        List<Manager> users = new ArrayList<>();
        
       
           try {
@@ -198,7 +199,7 @@ public class UserDAO {
             
             while(result.next()){
                 
-               User user = new User();
+               Manager user = new Manager();
                 
                 user.setId(result.getInt("id_user"));
                 user.setName(result.getString("user_name"));
@@ -233,12 +234,12 @@ public class UserDAO {
        return users;
     }
     
-    public boolean exist(String pesquisa){
+    public boolean exist(String search){
       
-            conectar();
+            connect();
             PreparedStatement statement = null;
             ResultSet result = null;
-            sql = "SELECT * FROM tbusuario WHERE nome LIKE ? or loguin LIKE ?;";
+            sql = "SELECT * FROM tb_user WHERE user_name LIKE ? or login LIKE ?;";
             boolean exist = false;
             
             
@@ -246,21 +247,70 @@ public class UserDAO {
             
             statement = connection.prepareStatement(sql);
             
-            statement.setString(1, "%"+pesquisa+"%");
-            statement.setString(2, "%"+pesquisa+"%");
+            statement.setString(1, "%"+search+"%");
+            statement.setString(2, "%"+search+"%");
             
             result = statement.executeQuery();
             
             exist = result.next();
             
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return exist;
     }
     
-    private void conectar() {
+    public Manager exist(Manager user){
+      
+            connect();
+            PreparedStatement statement = null;
+            ResultSet result = null;
+            sql = "SELECT * FROM tb_user WHERE user_password LIKE ? and login LIKE ?;";
+            
+            
+        try {
+            
+            statement = connection.prepareStatement(sql);
+            
+            statement.setString(1, "%"+user.getPassword()+"%");
+            statement.setString(2, "%"+user.getLogin()+"%");
+            
+             result = statement.executeQuery();
+            
+            while(result.next()){
+                
+ 
+                
+                user.setId(result.getInt("id_user"));
+                user.setName(result.getString("user_name"));
+                user.setLogin(result.getString("user_login"));
+                user.setPassword(result.getString("user_password"));
+                user.setAccessLevel(result.getInt("user_access_level"));
+               
+                String imageName = result.getString("user_image_name");
+                
+                if(ImageFile.exist(imageName) == false){
+                    
+                    user.setPerfilImage(result.getBinaryStream("user_image_perfil"), imageName);
+                              
+                }
+               
+                user.setEmail(result.getString("user_email"));
+                user.setAddress(result.getString("user_address"));
+                user.setCEP(result.getString("user_cep"));
+                user.setPhone(result.getString("user_phone"));
+                user.setSchool(result.getString("user_school"));
+
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return user;
+    }
+    
+    private void connect() {
      
         connection = ConnectionFactory.getConnection();
 
