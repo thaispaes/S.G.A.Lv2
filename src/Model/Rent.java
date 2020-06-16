@@ -13,31 +13,50 @@ import java.util.Date;
  */
 public class Rent {
     
-    private Student client;
+    private Long id;
+    private Student student;
     private Book book;
+    private Client client;
     private Date rented;
-    private Date term;
+    private Date returnDate;
     private boolean delivered;
     private double penality;
+    private String obrservation;
 
-    public Rent(Student client, Book book, Date rented, Date term, boolean delivered, double penality) {
-        this.client = client;
+    public Rent(Student student, Book book, Client client, Date rented, Date returnDate, boolean delivered, double penality, String obrservation) {
+        this.student = student;
         this.book = book;
+        this.client = client;
         this.rented = rented;
-        this.term = term;
+        this.returnDate = returnDate;
         this.delivered = delivered;
         this.penality = penality;
+        this.obrservation = obrservation;
     }
 
+
+    
     public Rent() {
     }
 
-    public Student getClient() {
-        return client;
+    public Long getId() {
+        return id;
     }
 
-    public void setClient(Student client) {
-        this.client = client;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setId(int id) {
+        this.id = new Long (id);
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public Book getBook() {
@@ -56,12 +75,12 @@ public class Rent {
         this.rented = rented;
     }
 
-    public Date getTerm() {
-        return term;
+    public Date getReturnDate() {
+        return returnDate;
     }
 
-    public void setTerm(Date term) {
-        this.term = term;
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
     }
 
     public boolean isDelivered() {
@@ -78,6 +97,22 @@ public class Rent {
 
     public void setPenality(double penality) {
         this.penality = penality;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public String getObrservation() {
+        return obrservation;
+    }
+
+    public void setObrservation(String obrservation) {
+        this.obrservation = obrservation;
     }
     
     
