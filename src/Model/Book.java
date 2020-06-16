@@ -6,6 +6,8 @@
 package Model;
 
 import java.io.File;
+import java.io.InputStream;
+import java.util.Date;
 
 /**
  *
@@ -19,9 +21,10 @@ public class Book {
     private String author;
     private String publisher;
     private String stock;
-    private File Image;
+    private ImageFile Image;
+    private Date acquired;
 
-    public Book(Long id, String name, String genre, String author, String publisher, String stock, File Image) {
+    public Book(Long id, String name, String genre, String author, String publisher, String stock, ImageFile Image, Date acquired) {
         this.id = id;
         this.name = name;
         this.genre = genre;
@@ -29,6 +32,7 @@ public class Book {
         this.publisher = publisher;
         this.stock = stock;
         this.Image = Image;
+        this.acquired = acquired;
     }
 
     public Book() {
@@ -82,12 +86,15 @@ public class Book {
         this.stock = stock;
     }
 
-    public File getImage() {
+    public ImageFile getImage() {
         return Image;
     }
 
-    public void setImage(File Image) {
+    public void setImage(ImageFile Image) {
         this.Image = Image;
     }
     
+    public void setImage(InputStream inputS) {
+        this.Image = new ImageFile(inputS, name);
+    }
 }
