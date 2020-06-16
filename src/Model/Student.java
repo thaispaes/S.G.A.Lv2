@@ -12,18 +12,10 @@ import java.util.ArrayList;
  *
  * @author Samuel
  */
-public class Student{
+public class Student extends User{
     
-    private Long id;
-    private String name;
-    private String CEP;
-    private String login;
-    private String password;
     private ImageFile imagePerfil;
     private String registration;
-    private String email;
-    private String phone;
-    private String Address;
     private String city;
     private String module;
     private String grade;
@@ -32,17 +24,10 @@ public class Student{
     private String shift;
     private ArrayList<Rent> rents;
 
-    public Student(Long id, String name, String CEP, String login, String password, ImageFile imagePerfil, String registration, String email, String phone, String Address, String city, String module, String grade, String course, String School, String shift, ArrayList<Rent> rents) {
-        this.id = id;
-        this.name = name;
-        this.CEP = CEP;
-        this.login = login;
-        this.password = password;
+    public Student(ImageFile imagePerfil, String registration, String city, String module, String grade, String course, String School, String shift, ArrayList<Rent> rents, Long id, String name, String login, String password, ImageFile perfilImage, String email, String address, String CEP, String phone) {
+        super(id, name, login, password, perfilImage, email, address, CEP, phone);
         this.imagePerfil = imagePerfil;
         this.registration = registration;
-        this.email = email;
-        this.phone = phone;
-        this.Address = Address;
         this.city = city;
         this.module = module;
         this.grade = grade;
@@ -52,16 +37,10 @@ public class Student{
         this.rents = rents;
     }
 
-    public Student(String name, String CEP, String login, String password, ImageFile imagePerfil, String registration, String email, String phone, String Address, String city, String module, String grade, String course, String School, String shift, ArrayList<Rent> rents) {
-        this.name = name;
-        this.CEP = CEP;
-        this.login = login;
-        this.password = password;
+    public Student(ImageFile imagePerfil, String registration, String city, String module, String grade, String course, String School, String shift, ArrayList<Rent> rents, String name, String login, String password, ImageFile perfilImage, String email, String address, String CEP, String phone) {
+        super(name, login, password, perfilImage, email, address, CEP, phone);
         this.imagePerfil = imagePerfil;
         this.registration = registration;
-        this.email = email;
-        this.phone = phone;
-        this.Address = Address;
         this.city = city;
         this.module = module;
         this.grade = grade;
@@ -70,71 +49,13 @@ public class Student{
         this.shift = shift;
         this.rents = rents;
     }
-
+    
     public Student() {
         
         imagePerfil = new ImageFile("");
         
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
     
-    public void setId(int id) {
-        this.id = new Long(id);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCEP() {
-        return CEP;
-    }
-
-    public void setCEP(String CEP) {
-        this.CEP = CEP;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public ImageFile getImagePerfil() {
-        return imagePerfil;
-    }
-
-    public void setImagePerfil(ImageFile imagePerfil) {
-        this.imagePerfil = imagePerfil;
-    }
-    
-    public void setImagePerfil(InputStream inputS, String name) {
-        
-        this.imagePerfil = new ImageFile(inputS, name);
-        
-    }
-
     public String getRegistration() {
         return registration;
     }
@@ -142,31 +63,7 @@ public class Student{
     public void setRegistration(String registration) {
         this.registration = registration;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getAddress() {
-        return Address;
-    }
-
-    public void setAddress(String Address) {
-        this.Address = Address;
-    }
-
+    
     public String getCity() {
         return city;
     }
