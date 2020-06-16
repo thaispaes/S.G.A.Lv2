@@ -100,7 +100,7 @@ CREATE TABLE `tb_rent` (
   KEY `idlivro` (`id_of_book`),
   KEY `idcli` (`id_of_student`),
   CONSTRAINT `tb_rent_ibfk_1` FOREIGN KEY (`id_of_book`) REFERENCES `tb_book` (`id_book`),
-  CONSTRAINT `tb_rent_ibfk_2` FOREIGN KEY (`id_of_student`) REFERENCES `tb_student` (`id_client`)
+  CONSTRAINT `tb_rent_ibfk_2` FOREIGN KEY (`id_of_student`) REFERENCES `tb_student` (`id_student`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -121,13 +121,13 @@ DROP TABLE IF EXISTS `tb_student`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tb_student` (
-  `id_client` int(11) NOT NULL AUTO_INCREMENT,
+  `id_student` int(11) NOT NULL AUTO_INCREMENT,
   `student_name` varchar(100) NOT NULL,
   `student_registration` varchar(100) NOT NULL,
   `student_email` tinytext,
   `student_phone` varchar(30) DEFAULT NULL,
   `student_CEP` tinytext,
-  `student_city` tinytext NOT NULL,
+  `student_address` tinytext NOT NULL,
   `student_module` varchar(45) NOT NULL,
   `student_grade` varchar(100) NOT NULL,
   `student_course` varchar(100) DEFAULT NULL,
@@ -136,7 +136,8 @@ CREATE TABLE `tb_student` (
   `student_login` varchar(100) NOT NULL,
   `student_password` varchar(100) NOT NULL,
   `student_image_perfil` varbinary(55530) DEFAULT NULL,
-  PRIMARY KEY (`id_client`),
+  `student_image_name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_student`),
   UNIQUE KEY `senha` (`student_password`),
   UNIQUE KEY `student_password` (`student_password`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -170,6 +171,7 @@ CREATE TABLE `tb_user` (
   `user_cep` varchar(30) DEFAULT NULL,
   `user_phone` varchar(30) DEFAULT NULL,
   `user_school` varchar(100) NOT NULL,
+  `user_image_name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `user_password` (`user_password`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -201,4 +203,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-11 16:54:46
+-- Dump completed on 2020-06-16 15:43:23
