@@ -167,20 +167,25 @@ public class StudentDAO {
                 student.setLogin(result.getString("student_login"));
                 student.setPassword(result.getString("student_password"));
                 student.setCEP(result.getString("student_CEP"));
+                student.setAddress(result.getString("student_address"));
                
                 String imageName = result.getString("student_image_name");
                 
                 if(ImageFile.exist(imageName) == false){
                     
-                    student.setImagePerfil(result.getBinaryStream("student_image_perfil"), imageName);
+                    student.setPerfilImage(result.getBinaryStream("student_image_perfil"), imageName);
                               
                 }
                
                 student.setEmail(result.getString("student_email"));
-                student.setAddress(result.getString("student_address"));
-                student.setCEP(result.getString("student_cep"));
+                student.setCourse(result.getString("student_course"));
+                student.setModule(result.getString("student_module"));
                 student.setPhone(result.getString("student_phone"));
                 student.setSchool(result.getString("student_school"));
+                student.setRegistration(result.getString("student_registration"));
+                student.setGrade(result.getString("student_grade"));
+                student.setSchool(result.getString("student_school"));
+                student.setShift(result.getString("student_shift"));
                 
                 students.add(student);
             }
@@ -194,13 +199,13 @@ public class StudentDAO {
        return students;
     }
     
-    public List<student> search(String pesquisa){
+    public List<Student> search(String pesquisa){
       
         conectar();
         PreparedStatement statement = null;
         ResultSet result = null;
         sql = "SELECT * FROM tb_student WHERE nome LIKE ? or loguin LIKE ?;";
-        List<student> students = new ArrayList<>();
+        List<Student> students = new ArrayList<>();
        
       
           try {
@@ -214,27 +219,32 @@ public class StudentDAO {
             
             while(result.next()){
                 
-               student student = new student();
+                Student student = new Student();
                 
                 student.setId(result.getInt("id_student"));
                 student.setName(result.getString("student_name"));
                 student.setLogin(result.getString("student_login"));
                 student.setPassword(result.getString("student_password"));
-                student.setAccessLevel(result.getInt("student_access_level"));
+                student.setCEP(result.getString("student_CEP"));
+                student.setAddress(result.getString("student_address"));
                
                 String imageName = result.getString("student_image_name");
                 
                 if(ImageFile.exist(imageName) == false){
                     
-                    student.setimagePerfil(result.getBinaryStream("student_image_perfil"), imageName);
+                    student.setPerfilImage(result.getBinaryStream("student_image_perfil"), imageName);
                               
                 }
                
                 student.setEmail(result.getString("student_email"));
-                student.setAddress(result.getString("student_address"));
-                student.setCEP(result.getString("student_cep"));
+                student.setCourse(result.getString("student_course"));
+                student.setModule(result.getString("student_module"));
                 student.setPhone(result.getString("student_phone"));
                 student.setSchool(result.getString("student_school"));
+                student.setRegistration(result.getString("student_registration"));
+                student.setGrade(result.getString("student_grade"));
+                student.setSchool(result.getString("student_school"));
+                student.setShift(result.getString("student_shift"));
                 
                 students.add(student);
 
@@ -270,7 +280,7 @@ public class StudentDAO {
             exist = result.next();
             
         } catch (SQLException ex) {
-            Logger.getLogger(studentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudentDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return exist;

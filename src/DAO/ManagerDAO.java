@@ -23,7 +23,7 @@ public class ManagerDAO {
     
     private Connection connection;
     private String sql;
-    private static Manager loggedUser;
+    private static Manager loggedManeger;
 
     public boolean insert(Manager user){
         

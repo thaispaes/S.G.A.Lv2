@@ -22,6 +22,10 @@ public abstract  class User {
     protected String address;
     protected String CEP;
     protected String phone;
+    private int accessLevel;
+    public static final int ACCESS_MAX = 3;
+    public static final int ACCESS_MED = 2;
+    public static final int ACCESS_MIN = 1;
 
     public User(Long id, String name, String login, String password, ImageFile perfilImage, String email, String address, String CEP, String phone) {
         this.id = id;
@@ -132,4 +136,12 @@ public abstract  class User {
         this.phone = phone;
     }
 
+    public int getAccessLevel() {
+        return accessLevel;
+    }
+
+    public void setAccessLevel(int accessLevel) {
+        this.accessLevel = accessLevel;
+    }
+    
 }
