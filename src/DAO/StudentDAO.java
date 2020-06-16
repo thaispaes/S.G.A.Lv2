@@ -8,7 +8,7 @@ package DAO;
 import JDBC.ConnectionFactory;
 import Model.ImageFile;
 import Model.Student;
-import Model.Student;
+import Model.User;
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -186,6 +186,7 @@ public class StudentDAO {
                 student.setGrade(result.getString("student_grade"));
                 student.setSchool(result.getString("student_school"));
                 student.setShift(result.getString("student_shift"));
+                student.setAccessLevel(User.ACCESS_MIN);
                 
                 students.add(student);
             }
@@ -245,6 +246,7 @@ public class StudentDAO {
                 student.setGrade(result.getString("student_grade"));
                 student.setSchool(result.getString("student_school"));
                 student.setShift(result.getString("student_shift"));
+                student.setAccessLevel(User.ACCESS_MIN);
                 
                 students.add(student);
 
