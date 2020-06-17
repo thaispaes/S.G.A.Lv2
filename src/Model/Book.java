@@ -5,7 +5,6 @@
  */
 package Model;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Date;
 
@@ -20,17 +19,17 @@ public class Book {
     private String genre;
     private String author;
     private String publisher;
-    private String stock;
+    private Integer stock;
     private ImageFile Image;
-    private Date acquired;
+    private Time acquired;
 
-    public Book(Long id, String name, String genre, String author, String publisher, String stock, ImageFile Image, Date acquired) {
+    public Book(Long id, String name, String genre, String author, String publisher, String stock, ImageFile Image, Time acquired) {
         this.id = id;
         this.name = name;
         this.genre = genre;
         this.author = author;
         this.publisher = publisher;
-        this.stock = stock;
+        this.stock = new Integer (stock);
         this.Image = Image;
         this.acquired = acquired;
     }
@@ -78,11 +77,15 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public String getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(String stock) {
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+    
+    public void setStock(int stock) {
         this.stock = stock;
     }
 
@@ -97,4 +100,15 @@ public class Book {
     public void setImage(InputStream inputS) {
         this.Image = new ImageFile(inputS, name);
     }
+
+    public Time getAcquired() {
+        return acquired;
+    }
+
+    public void setAcquired(Time acquired) {
+        this.acquired = acquired;
+    }
+    
+    
+    
 }
