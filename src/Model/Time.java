@@ -47,6 +47,69 @@ public class Time {
         this.gregorianCalendar = new GregorianCalendar();
         
     }
+
+    public String getStringFromDate(Date date){
+        
+        String formated = defaultDate.format(date);
+        
+        return formated;
+    }
+    
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public java.sql.Date getDateSql() {
+        return dateSql;
+    }
+
+    public void setDateSql(java.sql.Date dateSql) {
+        this.dateSql = dateSql;
+    }
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
+    }
+
+    public LocalTime getLocalTime() {
+        return localTime;
+    }
+
+    public void setLocalTime(LocalTime localTime) {
+        this.localTime = localTime;
+    }
+
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
+
+    public Calendar getCalendar() {
+        return calendar;
+    }
+
+    public void setCalendar(Calendar calendar) {
+        this.calendar = calendar;
+    }
+
+    public GregorianCalendar getGregorianCalendar() {
+        return gregorianCalendar;
+    }
+
+    public void setGregorianCalendar(GregorianCalendar gregorianCalendar) {
+        this.gregorianCalendar = gregorianCalendar;
+    }
     
     
     
