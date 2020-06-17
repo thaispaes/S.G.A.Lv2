@@ -35,6 +35,9 @@ public class Book {
     }
 
     public Book() {
+        
+        this.acquired = new Time();
+        
     }
 
     public Long getId() {
@@ -43,6 +46,10 @@ public class Book {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public void setId(int id) {
+        this.id = new Long(id);
     }
 
     public String getName() {
@@ -97,7 +104,7 @@ public class Book {
         this.Image = Image;
     }
     
-    public void setImage(InputStream inputS) {
+    public void setImage(InputStream inputS,String name) {
         this.Image = new ImageFile(inputS, name);
     }
 
@@ -107,6 +114,10 @@ public class Book {
 
     public void setAcquired(Time acquired) {
         this.acquired = acquired;
+    }
+    
+    public void setAcquired(java.sql.Date acquired) {
+        this.acquired = new Time(acquired);
     }
     
     

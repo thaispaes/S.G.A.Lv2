@@ -47,6 +47,17 @@ public class Time {
         this.gregorianCalendar = new GregorianCalendar();
         
     }
+    
+    public Time(java.sql.Date sqlDate) {
+        
+        this.date = new Date(sqlDate.getTime());
+        this.dateSql = new java.sql.Date(date.getTime());
+        this.localDate = sqlDate.toLocalDate();
+        this.localTime = LocalTime.now();
+        this.localDateTime = LocalDateTime.now();
+        this.gregorianCalendar = new GregorianCalendar();
+        
+    }
 
     public String getStringFromDate(Date date){
         
@@ -55,6 +66,10 @@ public class Time {
         return formated;
     }
     
+    public static java.sql.Date getSQLDateFrom(Date date){
+        
+        return new java.sql.Date(date.getTime());
+    }
     public Date getDate() {
         return date;
     }

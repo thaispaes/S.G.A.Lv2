@@ -50,7 +50,7 @@ public class BookDAO {
             }
             
             statement.setString(7, book.getGenre());
-            statement.setString(8, book.getAcquired());
+            statement.setDate(8, book.getAcquired().getDateSql());
             
             statement.execute();
             
@@ -65,11 +65,11 @@ public class BookDAO {
         
     }
     
-    public boolean update(book book){
+    public boolean update(Book book){
         
     connect();
         PreparedStatement statement = null;
-        sql = "UPDATE tb_book book_name = ?, book_login = ?, book_password = ?, book_access_level = ?, book_image_perfil = ?,book_image_name = ? , book_email = ?, book_address = ?, book_cep = ?, book_phone = ? WHERE id_book = ?;";
+        sql = "UPDATE tb_book book_name = ?, book_author = ?, book_publisher = ?, book_stock = ?, book_image = ?, book_image_name = ?, book_genre = ?, book_acquired_date = ? WHERE id_book = ?;";
         
            
           try {
@@ -77,19 +77,19 @@ public class BookDAO {
             statement = connection.prepareStatement(sql);
             
             statement.setString(1, book.getName());
-            statement.setString(2, book.getLogin());
-            statement.setString(3, book.getPassword());
-            statement.setInt(4, book.getAccessLevel());
+            statement.setString(2, book.getAuthor());
+            statement.setString(3, book.getPublisher());
+            statement.setInt(4, book.getStock());
             
-            if(book.getPerfilImage() != null){
-                statement.setBinaryStream(5, book.getPerfilImage().getInput());
-                statement.setString(6, book.getPerfilImage().getFile().getName());
+            if(book.getImage()!= null){
+                
+                statement.setBinaryStream(5, book.getImage().getInput());
+                statement.setString(6, book.getImage().getFile().getName());
             }
-            statement.setString(7, book.getEmail());
-            statement.setString(8, book.getAddress());
-            statement.setString(9, book.getCEP());
-            statement.setString(10, book.getPhone());
-            statement.setInt(12, book.getId().intValue());
+            
+            statement.setString(7, book.getGenre());
+            statement.setDate(8, book.getAcquired().getDateSql());
+            statement.setInt(9, book.getId().intValue());
             
             statement.execute();
             
@@ -104,7 +104,7 @@ public class BookDAO {
     }
 
     
-    public boolean delet(book book){
+    public boolean delet(Book book){
             
     connect();
         PreparedStatement statement = null;
@@ -129,13 +129,13 @@ public class BookDAO {
     }
     
 
-    public List<book> selectAll(){
+    public List<Book> selectAll(){
       
         connect();
         PreparedStatement statement = null;
         ResultSet result = null;
         sql = "SELECT * FROM tb_book;";
-        List<book> books = new ArrayList<>();
+        List<Book> books = new ArrayList<>();
    
           try {
               
@@ -145,27 +145,25 @@ public class BookDAO {
             
             while(result.next()){
                 
-                book book = new book();
+                Book book = new Book();
                 
                 book.setId(result.getInt("id_book"));
                 book.setName(result.getString("book_name"));
-                book.setLogin(result.getString("book_login"));
-                book.setPassword(result.getString("book_password"));
-                book.setAccessLevel(result.getInt("book_access_level"));
+                book.setAuthor(result.getString("book_author"));
+                book.setPublisher(result.getString("book_publisher"));
+                book.setStock(result.getInt("book_stock"));
                
                 String imageName = result.getString("book_image_name");
                 
                 if(ImageFile.exist(imageName) == false){
                     
-                    book.setPerfilImage(result.getBinaryStream("book_image_perfil"), imageName);
+                    book.setImage(result.getBinaryStream("book_image_perfil"), imageName);
                               
                 }
                
-                book.setEmail(result.getString("book_email"));
-                book.setAddress(result.getString("book_address"));
-                book.setCEP(result.getString("book_cep"));
-                book.setPhone(result.getString("book_phone"));
-                
+                book.setGenre(result.getString("book_genre"));
+                book.setAcquired(result.getDate("book_acquired_date"));
+
                 books.add(book);
             }
 
@@ -192,32 +190,30 @@ public class BookDAO {
             statement = connection.prepareStatement(sql);
             
             statement.setString(1, "%"+pesquisa+"%");
-            statement.setString(2, "%"+pesquisa+"%");
             
             result = statement.executeQuery();
             
             while(result.next()){
                 
-               book book = new book();
+              Book book = new Book();
                 
                 book.setId(result.getInt("id_book"));
                 book.setName(result.getString("book_name"));
-                book.setLogin(result.getString("book_login"));
-                book.setPassword(result.getString("book_password"));
-                book.setAccessLevel(result.getInt("book_access_level"));
+                book.setAuthor(result.getString("book_author"));
+                book.setPublisher(result.getString("book_publisher"));
+                book.setStock(result.getInt("book_stock"));
                
                 String imageName = result.getString("book_image_name");
                 
                 if(ImageFile.exist(imageName) == false){
                     
-                    book.setPerfilImage(result.getBinaryStream("book_image_perfil"), imageName);
+                    book.setImage(result.getBinaryStream("book_image_perfil"), imageName);
                               
                 }
                
-                book.setEmail(result.getString("book_email"));
-                book.setAddress(result.getString("book_address"));
-                book.setCEP(result.getString("book_cep"));
-                book.setPhone(result.getString("book_phone"));
+                book.setGenre(result.getString("book_genre"));
+                book.setAcquired(result.getDate("book_acquired_date"));
+
                 
                 books.add(book);
 
@@ -256,54 +252,6 @@ public class BookDAO {
             return false;
         }
         return exist;
-    }
-    
-    public book exist(book book){
-      
-            connect();
-            PreparedStatement statement = null;
-            ResultSet result = null;
-            sql = "SELECT * FROM tb_book WHERE book_password LIKE ? and login LIKE ?;";
-            
-            
-        try {
-            
-            statement = connection.prepareStatement(sql);
-            
-            statement.setString(1, "%"+book.getPassword()+"%");
-            statement.setString(2, "%"+book.getLogin()+"%");
-            
-             result = statement.executeQuery();
-            
-            while(result.next()){
-                
- 
-                
-                book.setId(result.getInt("id_book"));
-                book.setName(result.getString("book_name"));
-                book.setLogin(result.getString("book_login"));
-                book.setPassword(result.getString("book_password"));
-                book.setAccessLevel(result.getInt("book_access_level"));
-               
-                String imageName = result.getString("book_image_name");
-                
-                if(ImageFile.exist(imageName) == false){
-                    
-                    book.setPerfilImage(result.getBinaryStream("book_image_perfil"), imageName);
-                              
-                }
-               
-                book.setEmail(result.getString("book_email"));
-                book.setAddress(result.getString("book_address"));
-                book.setCEP(result.getString("book_cep"));
-                book.setPhone(result.getString("book_phone"));
-
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return book;
     }
     
     private void connect() {
