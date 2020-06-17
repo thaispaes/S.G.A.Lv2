@@ -8,6 +8,7 @@ package DAO;
 import JDBC.ConnectionFactory;
 import Model.ImageFile;
 import Model.Client;
+import Model.User;
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,9 +25,10 @@ import javax.swing.JOptionPane;
  */
 public class ClientDAO {
     
-     private Connection connection;
+    private Connection connection;
     private String sql;
     private static Client loggedManeger;
+    private String imageName = "";
 
     public boolean insert(Client client){
         
@@ -70,7 +72,7 @@ public class ClientDAO {
         
     connect();
         PreparedStatement statement = null;
-        sql = "UPDATE tb_client client_name = ?, client_login = ?, client_password = ?, client_access_level = ?, client_image_perfil = ?,client_image_name = ? , client_email = ?, client_address = ?, client_cep = ?, client_phone = ? WHERE id_client = ?;";
+        sql = "UPDATE tb_client SET client_name = ?, client_login = ?, client_password = ?, client_access_level = ?, client_image_perfil = ?,client_image_name = ? , client_email = ?, client_address = ?, client_cep = ?, client_phone = ? WHERE id_client = ?;";
         
            
           try {
@@ -166,6 +168,7 @@ public class ClientDAO {
                 client.setAddress(result.getString("client_address"));
                 client.setCEP(result.getString("client_cep"));
                 client.setPhone(result.getString("client_phone"));
+                client.setAccessLevel(User.ACCESS_MIN);
                 
                 clients.add(client);
             }
@@ -219,6 +222,7 @@ public class ClientDAO {
                 client.setAddress(result.getString("client_address"));
                 client.setCEP(result.getString("client_cep"));
                 client.setPhone(result.getString("client_phone"));
+                client.setAccessLevel(User.ACCESS_MIN);
                 
                 clients.add(client);
 
@@ -266,7 +270,7 @@ public class ClientDAO {
             PreparedStatement statement = null;
             ResultSet result = null;
             sql = "SELECT * FROM tb_client WHERE client_password LIKE ? and login LIKE ?;";
-            
+            String imageName = "";
             
         try {
             
@@ -287,7 +291,7 @@ public class ClientDAO {
                 client.setPassword(result.getString("client_password"));
                 client.setAccessLevel(result.getInt("client_access_level"));
                
-                String imageName = result.getString("client_image_name");
+                imageName = result.getString("client_image_name");
                 
                 if(ImageFile.exist(imageName) == false){
                     
@@ -299,7 +303,8 @@ public class ClientDAO {
                 client.setAddress(result.getString("client_address"));
                 client.setCEP(result.getString("client_cep"));
                 client.setPhone(result.getString("client_phone"));
-
+                client.setAccessLevel(User.ACCESS_MIN);
+                
             }
             
         } catch (SQLException ex) {

@@ -69,7 +69,7 @@ public class BookDAO {
         
     connect();
         PreparedStatement statement = null;
-        sql = "UPDATE tb_book book_name = ?, book_author = ?, book_publisher = ?, book_stock = ?, book_image = ?, book_image_name = ?, book_genre = ?, book_acquired_date = ? WHERE id_book = ?;";
+        sql = "UPDATE tb_book SET book_name = ?, book_author = ?, book_publisher = ?, book_stock = ?, book_image = ?, book_image_name = ?, book_genre = ?, book_acquired_date = ? WHERE id_book = ?;";
         
            
           try {

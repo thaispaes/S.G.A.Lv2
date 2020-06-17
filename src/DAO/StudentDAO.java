@@ -77,7 +77,7 @@ public class StudentDAO {
         
     conectar();
         PreparedStatement statement = null;
-        sql = "UPDATE tb_student student_name = ? , student_login = ?, student_password = ?, student_registration = ?, student_image_perfil = ?, student_image_name = ?, student_email = ?,  student_CEP = ?, student_phone = ?, student_school = ?, student_Address = ?, student_module = ?, student_grade = ?, student_course = ?, student_shift = ? WHERE id_student = ?;";
+        sql = "UPDATE tb_student SET student_name = ? , student_login = ?, student_password = ?, student_registration = ?, student_image_perfil = ?, student_image_name = ?, student_email = ?,  student_CEP = ?, student_phone = ?, student_school = ?, student_Address = ?, student_module = ?, student_grade = ?, student_course = ?, student_shift = ? WHERE id_student = ?;";
         
            
           try {

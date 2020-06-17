@@ -68,7 +68,7 @@ public class ManagerDAO {
         
     connect();
         PreparedStatement statement = null;
-        sql = "UPDATE tb_user user_name = ?, user_login = ?, user_password = ?, user_access_level = ?, user_image_perfil = ?,user_image_name = ? , user_email = ?, user_address = ?, user_cep = ?, user_phone = ?, user_school = ? WHERE id_user = ?;";
+        sql = "UPDATE tb_user SET user_name = ?, user_login = ?, user_password = ?, user_access_level = ?, user_image_perfil = ?,user_image_name = ? , user_email = ?, user_address = ?, user_cep = ?, user_phone = ?, user_school = ? WHERE id_user = ?;";
         
            
           try {
