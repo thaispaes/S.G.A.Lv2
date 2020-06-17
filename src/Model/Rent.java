@@ -17,19 +17,19 @@ public class Rent {
     private Student student;
     private Book book;
     private Client client;
-    private Date rented;
-    private Date returnDate;
-    private boolean delivered;
+    private Time rented;
+    private Time returnDate;
+    private boolean returned;
     private double penality;
     private String obrservation;
 
-    public Rent(Student student, Book book, Client client, Date rented, Date returnDate, boolean delivered, double penality, String obrservation) {
+    public Rent(Student student, Book book, Client client, Time rented, Time returnDate, boolean delivered, double penality, String obrservation) {
         this.student = student;
         this.book = book;
         this.client = client;
         this.rented = rented;
         this.returnDate = returnDate;
-        this.delivered = delivered;
+        this.returned = delivered;
         this.penality = penality;
         this.obrservation = obrservation;
     }
@@ -37,6 +37,9 @@ public class Rent {
 
     
     public Rent() {
+        
+        rented = new Time();
+        returnDate = new Time();
     }
 
     public Long getId() {
@@ -67,28 +70,36 @@ public class Rent {
         this.book = book;
     }
 
-    public Date getRented() {
+    public Time getRented() {
         return rented;
     }
 
-    public void setRented(Date rented) {
+    public void setRented(Time rented) {
         this.rented = rented;
     }
+    
+    public void setRented(java.sql.Date rented) {
+        this.rented = new Time (rented);
+    }
 
-    public Date getReturnDate() {
+    public Time getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(Time returnDate) {
         this.returnDate = returnDate;
     }
-
-    public boolean isDelivered() {
-        return delivered;
+    
+    public void setReturnDate(java.sql.Date returnDate) {
+        this.returnDate = new Time(returnDate);
     }
 
-    public void setDelivered(boolean delivered) {
-        this.delivered = delivered;
+    public boolean isReturned() {
+        return returned;
+    }
+
+    public void setReturned(boolean returned) {
+        this.returned = returned;
     }
 
     public double getPenality() {
