@@ -11,7 +11,7 @@ import JDBC.ConnectionFactory;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
-public class Loguin extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     Connection conexao = null;
     PreparedStatement ps = null;
@@ -32,14 +32,14 @@ public class Loguin extends javax.swing.JFrame {
                 String perfil = rs.getString(5);
                 
                 if (perfil.equals("Admin")) {
-                    Inicio principal = new Inicio();
+                    Start principal = new Start();
                     principal.setVisible(true);
                     this.dispose();
-                    Inicio.menIntCadUser.setEnabled(true);
+                    Start.menIntCadUser.setEnabled(true);
                 } else if("User".equals(perfil)){
-                    Inicio principal = new Inicio();
+                    Start principal = new Start();
                     principal.setVisible(true);
-                    Inicio.menIntCadUser.setVisible(false);
+                    Start.menIntCadUser.setVisible(false);
                     this.dispose();
                 }
             } else {
@@ -50,7 +50,7 @@ public class Loguin extends javax.swing.JFrame {
         }
     }
 
-    public Loguin() {
+    public Login() {
         initComponents();
         conexao = ConnectionFactory.getConnection();
         lblConexao.setText("Desconectado");
@@ -166,20 +166,21 @@ public class Loguin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Loguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Loguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Loguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Loguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Loguin().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
