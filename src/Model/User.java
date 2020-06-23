@@ -11,7 +11,7 @@ import java.io.InputStream;
  *
  * @author Samuel
  */
-public abstract  class User {
+public class User {
     
     protected Long id;
     protected String name;
@@ -26,6 +26,7 @@ public abstract  class User {
     public static final int ACCESS_MAX = 3;
     public static final int ACCESS_MED = 2;
     public static final int ACCESS_MIN = 1;
+
 
     public User(Long id, String name, String login, String password, ImageFile perfilImage, String email, String address, String CEP, String phone) {
         this.id = id;
@@ -53,7 +54,15 @@ public abstract  class User {
     public User() {
         perfilImage = new ImageFile("");
     }
+    
+    public int getAccessLevel() {
+        return accessLevel;
+    }
 
+    public void setAccessLevel(int accessLevel) {
+        this.accessLevel = accessLevel;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -135,13 +144,4 @@ public abstract  class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public int getAccessLevel() {
-        return accessLevel;
-    }
-
-    public void setAccessLevel(int accessLevel) {
-        this.accessLevel = accessLevel;
-    }
-    
 }

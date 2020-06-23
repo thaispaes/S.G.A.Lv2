@@ -12,37 +12,22 @@ import java.util.ArrayList;
  *
  * @author Samuel
  */
-public class Student extends User{
+public class Student extends Manager{
     
     private ImageFile imagePerfil;
     private String registration;
     private String module;
     private String grade;
     private String course;
-    private String School;
     private String shift;
     private ArrayList<Rent> rents;
 
-    public Student(ImageFile imagePerfil, String registration, String module, String grade, String course, String School, String shift, ArrayList<Rent> rents, Long id, String name, String login, String password, ImageFile perfilImage, String email, String address, String CEP, String phone) {
-        super(id, name, login, password, perfilImage, email, address, CEP, phone);
+    public Student(ImageFile imagePerfil, String registration, String module, String grade, String course, String shift, ArrayList<Rent> rents) {
         this.imagePerfil = imagePerfil;
         this.registration = registration;
         this.module = module;
         this.grade = grade;
         this.course = course;
-        this.School = School;
-        this.shift = shift;
-        this.rents = rents;
-    }
-
-    public Student(ImageFile imagePerfil, String registration, String module, String grade, String course, String School, String shift, ArrayList<Rent> rents, String name, String login, String password, ImageFile perfilImage, String email, String address, String CEP, String phone) {
-        super(name, login, password, perfilImage, email, address, CEP, phone);
-        this.imagePerfil = imagePerfil;
-        this.registration = registration;
-        this.module = module;
-        this.grade = grade;
-        this.course = course;
-        this.School = School;
         this.shift = shift;
         this.rents = rents;
     }
@@ -83,14 +68,6 @@ public class Student extends User{
 
     public void setCourse(String course) {
         this.course = course;
-    }
-
-    public String getSchool() {
-        return School;
-    }
-
-    public void setSchool(String School) {
-        this.School = School;
     }
 
     public String getShift() {

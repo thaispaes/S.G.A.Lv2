@@ -7,7 +7,7 @@ package DAO;
 
 import JDBC.ConnectionFactory;
 import Model.Book;
-import Model.Client;
+import Model.User;
 import Model.Rent;
 import Model.ImageFile;
 import Model.Student;
@@ -198,7 +198,7 @@ public class RentDAO {
                 }
 
                 if (result.getInt("id_student") != 0) {
-                    Client client = new Client();
+                    User client = new User();
 
                     client.setId(result.getInt("id_client"));
                     client.setName(result.getString("client_name"));
@@ -316,7 +316,7 @@ public class RentDAO {
                 }
 
                 if (result.getInt("id_student") != 0) {
-                    Client client = new Client();
+                    User client = new User();
 
                     client.setId(result.getInt("id_client"));
                     client.setName(result.getString("client_name"));

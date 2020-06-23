@@ -7,7 +7,7 @@ package DAO;
 
 import JDBC.ConnectionFactory;
 import Model.ImageFile;
-import Model.Client;
+import Model.User;
 import Model.User;
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
@@ -23,14 +23,14 @@ import javax.swing.JOptionPane;
  *
  * @author Samuel
  */
-public class ClientDAO {
+public class UserDAO {
     
     private Connection connection;
     private String sql;
-    private static Client loggedManeger;
+    private static User loggedManeger;
     private String imageName = "";
 
-    public boolean insert(Client client){
+    public boolean insert(User client){
         
         connect();
         PreparedStatement statement = null;
@@ -68,7 +68,7 @@ public class ClientDAO {
         
     }
     
-    public boolean update(Client client){
+    public boolean update(User client){
         
     connect();
         PreparedStatement statement = null;
@@ -107,7 +107,7 @@ public class ClientDAO {
     }
 
     
-    public boolean delet(Client client){
+    public boolean delet(User client){
             
     connect();
         PreparedStatement statement = null;
@@ -132,13 +132,13 @@ public class ClientDAO {
     }
     
 
-    public List<Client> selectAll(){
+    public List<User> selectAll(){
       
         connect();
         PreparedStatement statement = null;
         ResultSet result = null;
         sql = "SELECT * FROM tb_client;";
-        List<Client> clients = new ArrayList<>();
+        List<User> clients = new ArrayList<>();
    
           try {
               
@@ -148,7 +148,7 @@ public class ClientDAO {
             
             while(result.next()){
                 
-                Client client = new Client();
+                User client = new User();
                 
                 client.setId(result.getInt("id_client"));
                 client.setName(result.getString("client_name"));
@@ -182,13 +182,13 @@ public class ClientDAO {
        return clients;
     }
     
-    public List<Client> search(String pesquisa){
+    public List<User> search(String pesquisa){
       
         connect();
         PreparedStatement statement = null;
         ResultSet result = null;
         sql = "SELECT * FROM tb_client WHERE client_name LIKE ? or login LIKE ?;";
-        List<Client> clients = new ArrayList<>();
+        List<User> clients = new ArrayList<>();
        
       
           try {
@@ -202,7 +202,7 @@ public class ClientDAO {
             
             while(result.next()){
                 
-               Client client = new Client();
+               User client = new User();
                 
                 client.setId(result.getInt("id_client"));
                 client.setName(result.getString("client_name"));
@@ -258,13 +258,13 @@ public class ClientDAO {
             exist = result.next();
             
         } catch (SQLException ex) {
-            Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return exist;
     }
     
-    public Client exist(Client client){
+    public User exist(User client){
       
             connect();
             PreparedStatement statement = null;
@@ -308,7 +308,7 @@ public class ClientDAO {
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(ClientDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return client;
     }

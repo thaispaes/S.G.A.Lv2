@@ -15,6 +15,7 @@ public class Manager extends User{
     
     private String school;
 
+
     
     public Manager() {
         super.perfilImage = new ImageFile("");
@@ -27,7 +28,5 @@ public class Manager extends User{
     public void setSchool(String school) {
         this.school = school;
     }
-
-   
     
 }
