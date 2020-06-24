@@ -7,7 +7,6 @@ package DAO;
 
 import Factory.BookFactory;
 import JDBC.ConnectionFactory;
-import Model.ImageFile;
 import Model.Book;
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;

@@ -7,12 +7,7 @@ package DAO;
 
 import Factory.RentFactory;
 import JDBC.ConnectionFactory;
-import Model.Book;
-import Model.User;
 import Model.Rent;
-import Model.ImageFile;
-import Model.Student;
-import Model.User;
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

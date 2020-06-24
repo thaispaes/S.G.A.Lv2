@@ -7,10 +7,8 @@ package DAO;
 
 import Factory.ManagerFactory;
 import JDBC.ConnectionFactory;
-import Model.ImageFile;
 import Model.Manager;
 import com.mysql.jdbc.Connection;
-import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

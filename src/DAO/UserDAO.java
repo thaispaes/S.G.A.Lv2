@@ -7,8 +7,6 @@ package DAO;
 
 import Factory.UserFactory;
 import JDBC.ConnectionFactory;
-import Model.ImageFile;
-import Model.User;
 import Model.User;
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;

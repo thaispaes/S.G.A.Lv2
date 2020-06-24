@@ -7,9 +7,7 @@ package DAO;
 
 import Factory.StudentFactory;
 import JDBC.ConnectionFactory;
-import Model.ImageFile;
 import Model.Student;
-import Model.User;
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,8 +26,7 @@ public class StudentDAO {
     
     private Connection connection;
     private String sql;
-    private static Student loggedstudent;
-
+    
     public boolean insert(Student student){
         
         connect();
