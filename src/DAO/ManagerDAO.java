@@ -30,7 +30,7 @@ public class ManagerDAO {
         
         connect();
         PreparedStatement statement = null;
-        sql = "INSERT INTO tb_user (user_name, user_login, user_password, user_access_level, user_image_perfil, user_image_name , user_email, user_address, user_cep, user_phone, user_school) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+        sql = "INSERT INTO tb_user (user_name, user_login, user_password, user_access_level, user_image_perfil, user_email, user_address, user_cep, user_phone, user_school) VALUES (?,?,?,?,?,?,?,?,?,?);";
 
           try {
               
@@ -40,18 +40,12 @@ public class ManagerDAO {
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getPassword());
             statement.setInt(4, user.getAccessLevel());
-            
-            if(user.getPerfilImage() != null){
-                
-                statement.setBinaryStream(5, user.getPerfilImage().getInput());
-                statement.setString(6, user.getPerfilImage().getFile().getName());
-            }
-            
-            statement.setString(7, user.getEmail());
-            statement.setString(8, user.getAddress());
-            statement.setString(9, user.getCEP());
-            statement.setString(10, user.getPhone());
-            statement.setString(11, user.getSchool());
+            statement.setString(5, user.getPerfilImage().getFile().getName());
+            statement.setString(6, user.getEmail());
+            statement.setString(7, user.getAddress());
+            statement.setString(8, user.getCEP());
+            statement.setString(9, user.getPhone());
+            statement.setString(10, user.getSchool());
             statement.execute();
             
             return true;
@@ -80,17 +74,13 @@ public class ManagerDAO {
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getPassword());
             statement.setInt(4, user.getAccessLevel());
-            
-            if(user.getPerfilImage() != null){
-                statement.setBinaryStream(5, user.getPerfilImage().getInput());
-                statement.setString(6, user.getPerfilImage().getFile().getName());
-            }
-            statement.setString(7, user.getEmail());
-            statement.setString(8, user.getAddress());
-            statement.setString(9, user.getCEP());
-            statement.setString(10, user.getPhone());
-            statement.setString(11, user.getSchool());
-            statement.setInt(12, user.getId().intValue());
+            statement.setString(5, user.getPerfilImage().getFile().getName());
+            statement.setString(6, user.getEmail());
+            statement.setString(7, user.getAddress());
+            statement.setString(8, user.getCEP());
+            statement.setString(9, user.getPhone());
+            statement.setString(10, user.getSchool());
+            statement.setInt(11, user.getId().intValue());
             
             statement.execute();
             
@@ -241,27 +231,7 @@ public class ManagerDAO {
             
             while(result.next()){
                 
- 
-                
-                user.setId(result.getInt("id_user"));
-                user.setName(result.getString("user_name"));
-                user.setLogin(result.getString("user_login"));
-                user.setPassword(result.getString("user_password"));
-                user.setAccessLevel(result.getInt("user_access_level"));
-               
-                String imageName = result.getString("user_image_name");
-                
-                if(ImageFile.exist(imageName) == false){
-                    
-                    user.setPerfilImage(result.getBinaryStream("user_image_perfil"), imageName);
-                              
-                }
-               
-                user.setEmail(result.getString("user_email"));
-                user.setAddress(result.getString("user_address"));
-                user.setCEP(result.getString("user_cep"));
-                user.setPhone(result.getString("user_phone"));
-                user.setSchool(result.getString("user_school"));
+                user = ManagerFactory.generateManager(result);
 
             }
             
