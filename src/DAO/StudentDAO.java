@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Factory.StudentFactory;
 import JDBC.ConnectionFactory;
 import Model.ImageFile;
 import Model.Student;
@@ -160,33 +161,7 @@ public class StudentDAO {
             
             while(result.next()){
                 
-                Student student = new Student();
-                
-                student.setId(result.getInt("id_student"));
-                student.setName(result.getString("student_name"));
-                student.setLogin(result.getString("student_login"));
-                student.setPassword(result.getString("student_password"));
-                student.setCEP(result.getString("student_CEP"));
-                student.setAddress(result.getString("student_address"));
-               
-                String imageName = result.getString("student_image_name");
-                
-                if(ImageFile.exist(imageName) == false){
-                    
-                    student.setPerfilImage(result.getBinaryStream("student_image_perfil"), imageName);
-                              
-                }
-               
-                student.setEmail(result.getString("student_email"));
-                student.setCourse(result.getString("student_course"));
-                student.setModule(result.getString("student_module"));
-                student.setPhone(result.getString("student_phone"));
-                student.setSchool(result.getString("student_school"));
-                student.setRegistration(result.getString("student_registration"));
-                student.setGrade(result.getString("student_grade"));
-                student.setSchool(result.getString("student_school"));
-                student.setShift(result.getString("student_shift"));
-                student.setAccessLevel(User.ACCESS_MIN);
+                Student student = StudentFactory.generateStudent(result);
                 
                 students.add(student);
             }
@@ -220,33 +195,7 @@ public class StudentDAO {
             
             while(result.next()){
                 
-                Student student = new Student();
-                
-                student.setId(result.getInt("id_student"));
-                student.setName(result.getString("student_name"));
-                student.setLogin(result.getString("student_login"));
-                student.setPassword(result.getString("student_password"));
-                student.setCEP(result.getString("student_CEP"));
-                student.setAddress(result.getString("student_address"));
-               
-                String imageName = result.getString("student_image_name");
-                
-                if(ImageFile.exist(imageName) == false){
-                    
-                    student.setPerfilImage(result.getBinaryStream("student_image_perfil"), imageName);
-                              
-                }
-               
-                student.setEmail(result.getString("student_email"));
-                student.setCourse(result.getString("student_course"));
-                student.setModule(result.getString("student_module"));
-                student.setPhone(result.getString("student_phone"));
-                student.setSchool(result.getString("student_school"));
-                student.setRegistration(result.getString("student_registration"));
-                student.setGrade(result.getString("student_grade"));
-                student.setSchool(result.getString("student_school"));
-                student.setShift(result.getString("student_shift"));
-                student.setAccessLevel(User.ACCESS_MIN);
+                Student student = StudentFactory.generateStudent(result);
                 
                 students.add(student);
 
