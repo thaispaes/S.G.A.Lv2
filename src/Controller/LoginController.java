@@ -14,6 +14,7 @@ import Model.Student;
 import Model.User;
 import View.Login;
 import View.Start;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -72,6 +73,10 @@ public class LoginController {
             logged = true;
             openStar();
             return;
+        }
+        
+        if(logged == false){
+            JOptionPane.showMessageDialog(view, "Usuário nao encntrado ou inexistente");
         }
 
     }
