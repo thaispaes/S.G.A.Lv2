@@ -26,12 +26,7 @@ public class UserFactory {
         user.setLogin(result.getString("client_login"));
         user.setPassword(result.getString("client_password"));
         user.setAccessLevel(result.getInt("client_access_level"));
-        String imageName = result.getString("");
-        if(ImageFile.exist(imageName) == false){
-            
-            user.setPerfilImage(result.getBinaryStream("client_image_perfil"), imageName);
-            
-        }
+        user.setPerfilImage(ImageFactory.generateImage(result));
         user.setEmail(result.getString("client_email"));
         user.setAddress(result.getString("client_address"));
         user.setCEP(result.getString("client_cep"));

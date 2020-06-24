@@ -128,14 +128,6 @@ public class ImageFile {
        
        return search.exists();
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
     
     public byte[] getBytes() {
         return bytes;
