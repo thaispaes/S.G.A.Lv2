@@ -18,6 +18,57 @@ USE `dbbiblio`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Temporary view structure for view `data_of_rents_view`
+--
+
+DROP TABLE IF EXISTS `data_of_rents_view`;
+/*!50001 DROP VIEW IF EXISTS `data_of_rents_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `data_of_rents_view` AS SELECT 
+ 1 AS `id_rent`,
+ 1 AS `rented_date`,
+ 1 AS `id_of_book`,
+ 1 AS `id_of_student`,
+ 1 AS `return_date`,
+ 1 AS `rent_returned`,
+ 1 AS `rent_penality`,
+ 1 AS `rent_observation`,
+ 1 AS `id_of_client`,
+ 1 AS `id_student`,
+ 1 AS `student_name`,
+ 1 AS `student_registration`,
+ 1 AS `student_email`,
+ 1 AS `student_phone`,
+ 1 AS `student_CEP`,
+ 1 AS `student_address`,
+ 1 AS `student_module`,
+ 1 AS `student_grade`,
+ 1 AS `student_course`,
+ 1 AS `student_school`,
+ 1 AS `student_shift`,
+ 1 AS `student_login`,
+ 1 AS `student_password`,
+ 1 AS `student_image_perfil`,
+ 1 AS `client_name`,
+ 1 AS `client_CEP`,
+ 1 AS `client_address`,
+ 1 AS `client_phone`,
+ 1 AS `cliente_login`,
+ 1 AS `client_password`,
+ 1 AS `client_image_perfil`,
+ 1 AS `client_email`,
+ 1 AS `id_client`,
+ 1 AS `id_book`,
+ 1 AS `book_name`,
+ 1 AS `book_author`,
+ 1 AS `book_publisher`,
+ 1 AS `book_stock`,
+ 1 AS `book_genre`,
+ 1 AS `book_acquired_date`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `tb_book`
 --
 
@@ -219,6 +270,24 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'dbbiblio'
 --
+
+--
+-- Final view structure for view `data_of_rents_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `data_of_rents_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `data_of_rents_view` AS select `tb_rent`.`id_rent` AS `id_rent`,`tb_rent`.`rented_date` AS `rented_date`,`tb_rent`.`id_of_book` AS `id_of_book`,`tb_rent`.`id_of_student` AS `id_of_student`,`tb_rent`.`return_date` AS `return_date`,`tb_rent`.`rent_returned` AS `rent_returned`,`tb_rent`.`rent_penality` AS `rent_penality`,`tb_rent`.`rent_observation` AS `rent_observation`,`tb_rent`.`id_of_client` AS `id_of_client`,`tb_student`.`id_student` AS `id_student`,`tb_student`.`student_name` AS `student_name`,`tb_student`.`student_registration` AS `student_registration`,`tb_student`.`student_email` AS `student_email`,`tb_student`.`student_phone` AS `student_phone`,`tb_student`.`student_CEP` AS `student_CEP`,`tb_student`.`student_address` AS `student_address`,`tb_student`.`student_module` AS `student_module`,`tb_student`.`student_grade` AS `student_grade`,`tb_student`.`student_course` AS `student_course`,`tb_student`.`student_school` AS `student_school`,`tb_student`.`student_shift` AS `student_shift`,`tb_student`.`student_login` AS `student_login`,`tb_student`.`student_password` AS `student_password`,`tb_student`.`student_image_perfil` AS `student_image_perfil`,`tb_client`.`client_name` AS `client_name`,`tb_client`.`client_CEP` AS `client_CEP`,`tb_client`.`client_address` AS `client_address`,`tb_client`.`client_phone` AS `client_phone`,`tb_client`.`cliente_login` AS `cliente_login`,`tb_client`.`client_password` AS `client_password`,`tb_client`.`client_image_perfil` AS `client_image_perfil`,`tb_client`.`client_email` AS `client_email`,`tb_client`.`id_client` AS `id_client`,`tb_book`.`id_book` AS `id_book`,`tb_book`.`book_name` AS `book_name`,`tb_book`.`book_author` AS `book_author`,`tb_book`.`book_publisher` AS `book_publisher`,`tb_book`.`book_stock` AS `book_stock`,`tb_book`.`book_genre` AS `book_genre`,`tb_book`.`book_acquired_date` AS `book_acquired_date` from (((`tb_rent` left join `tb_student` on((`tb_rent`.`id_of_student` = `tb_student`.`id_student`))) left join `tb_client` on((`tb_rent`.`id_of_client` = `tb_client`.`id_client`))) left join `tb_book` on((`tb_rent`.`id_of_book` = `tb_book`.`id_book`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -229,4 +298,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-24 11:56:36
+-- Dump completed on 2020-06-24 12:08:43
