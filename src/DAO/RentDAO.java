@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Factory.RentFactory;
 import JDBC.ConnectionFactory;
 import Model.Book;
 import Model.User;
@@ -135,93 +136,7 @@ public class RentDAO {
 
             while (result.next()) {
 
-                Rent rent = new Rent();
-
-                rent.setId(result.getInt("id_rent"));
-                rent.setRented(result.getDate("return_date"));
-                rent.setReturnDate(result.getDate("return_date"));
-                rent.setReturned(result.getBoolean("rent_returned"));
-                rent.setPenality(result.getDouble("rent_penality"));
-                rent.setObrservation(result.getString("rent_observation"));
-
-                Book book = new Book();
-
-                book.setId(result.getInt("id_book"));
-                book.setName(result.getString("book_name"));
-                book.setAuthor(result.getString("book_author"));
-                book.setPublisher(result.getString("book_publisher"));
-                book.setStock(result.getInt("book_stock"));
-
-                imageName = result.getString("book_image_name");
-
-                if (ImageFile.exist(imageName) == false) {
-
-                    book.setImage(result.getBinaryStream("book_image_perfil"), imageName);
-
-                }
-
-                book.setGenre(result.getString("book_genre"));
-                book.setAcquired(result.getDate("book_acquired_date"));
-
-                rent.setBook(book);
-
-                if (result.getInt("id_student") != 0) {
-                    Student student = new Student();
-
-                    student.setId(result.getInt("id_student"));
-                    student.setName(result.getString("student_name"));
-                    student.setLogin(result.getString("student_login"));
-                    student.setPassword(result.getString("student_password"));
-                    student.setCEP(result.getString("student_CEP"));
-                    student.setAddress(result.getString("student_address"));
-
-                    imageName = result.getString("student_image_name");
-
-                    if (ImageFile.exist(imageName) == false) {
-
-                        student.setPerfilImage(result.getBinaryStream("student_image_perfil"), imageName);
-
-                    }
-
-                    student.setEmail(result.getString("student_email"));
-                    student.setCourse(result.getString("student_course"));
-                    student.setModule(result.getString("student_module"));
-                    student.setPhone(result.getString("student_phone"));
-                    student.setSchool(result.getString("student_school"));
-                    student.setRegistration(result.getString("student_registration"));
-                    student.setGrade(result.getString("student_grade"));
-                    student.setSchool(result.getString("student_school"));
-                    student.setShift(result.getString("student_shift"));
-                    student.setAccessLevel(User.ACCESS_MIN);
-
-                    rent.setStudent(student);
-                }
-
-                if (result.getInt("id_student") != 0) {
-                    User client = new User();
-
-                    client.setId(result.getInt("id_client"));
-                    client.setName(result.getString("client_name"));
-                    client.setLogin(result.getString("client_login"));
-                    client.setPassword(result.getString("client_password"));
-                    client.setAccessLevel(result.getInt("client_access_level"));
-
-                    imageName = result.getString("client_image_name");
-
-                    if (ImageFile.exist(imageName) == false) {
-
-                        client.setPerfilImage(result.getBinaryStream("client_image_perfil"), imageName);
-
-                    }
-
-                    client.setEmail(result.getString("client_email"));
-                    client.setAddress(result.getString("client_address"));
-                    client.setCEP(result.getString("client_cep"));
-                    client.setPhone(result.getString("client_phone"));
-                    client.setAccessLevel(User.ACCESS_MIN);
-
-                    rent.setClient(client);
-                }
+                Rent rent = RentFactory.generateRent(result);
 
                 rents.add(rent);
             }
@@ -253,95 +168,7 @@ public class RentDAO {
 
             while (result.next()) {
 
-                Rent rent = new Rent();
-
-                rent.setId(result.getInt("id_rent"));
-                rent.setRented(result.getDate("return_date"));
-                rent.setReturnDate(result.getDate("return_date"));
-                rent.setReturned(result.getBoolean("rent_returned"));
-                rent.setPenality(result.getDouble("rent_penality"));
-                rent.setObrservation(result.getString("rent_observation"));
-
-                Book book = new Book();
-
-                book.setId(result.getInt("id_book"));
-                book.setName(result.getString("book_name"));
-                book.setAuthor(result.getString("book_author"));
-                book.setPublisher(result.getString("book_publisher"));
-                book.setStock(result.getInt("book_stock"));
-
-                imageName = result.getString("book_image_name");
-
-                if (ImageFile.exist(imageName) == false) {
-
-                    book.setImage(result.getBinaryStream("book_image_perfil"), imageName);
-
-                }
-
-                book.setGenre(result.getString("book_genre"));
-                book.setAcquired(result.getDate("book_acquired_date"));
-
-                rent.setBook(book);
-
-                if (result.getInt("id_student") != 0) {
-                    Student student = new Student();
-
-                    student.setId(result.getInt("id_student"));
-                    student.setName(result.getString("student_name"));
-                    student.setLogin(result.getString("student_login"));
-                    student.setPassword(result.getString("student_password"));
-                    student.setCEP(result.getString("student_CEP"));
-                    student.setAddress(result.getString("student_address"));
-
-                    imageName = result.getString("student_image_name");
-
-                    if (ImageFile.exist(imageName) == false) {
-
-                        student.setPerfilImage(result.getBinaryStream("student_image_perfil"), imageName);
-
-                    }
-
-                    student.setEmail(result.getString("student_email"));
-                    student.setCourse(result.getString("student_course"));
-                    student.setModule(result.getString("student_module"));
-                    student.setPhone(result.getString("student_phone"));
-                    student.setSchool(result.getString("student_school"));
-                    student.setRegistration(result.getString("student_registration"));
-                    student.setGrade(result.getString("student_grade"));
-                    student.setSchool(result.getString("student_school"));
-                    student.setShift(result.getString("student_shift"));
-                    student.setAccessLevel(User.ACCESS_MIN);
-
-                    rent.setStudent(student);
-                }
-
-                if (result.getInt("id_student") != 0) {
-                    User client = new User();
-
-                    client.setId(result.getInt("id_client"));
-                    client.setName(result.getString("client_name"));
-                    client.setLogin(result.getString("client_login"));
-                    client.setPassword(result.getString("client_password"));
-                    client.setAccessLevel(result.getInt("client_access_level"));
-
-                    imageName = result.getString("client_image_name");
-
-                    if (ImageFile.exist(imageName) == false) {
-
-                        client.setPerfilImage(result.getBinaryStream("client_image_perfil"), imageName);
-
-                    }
-
-                    client.setEmail(result.getString("client_email"));
-                    client.setAddress(result.getString("client_address"));
-                    client.setCEP(result.getString("client_cep"));
-                    client.setPhone(result.getString("client_phone"));
-                    client.setAccessLevel(User.ACCESS_MIN);
-
-                    rent.setClient(client);
-                }
-
-                rents.add(rent);
+                rents.add(RentFactory.generateRent(result));
 
             }
 
