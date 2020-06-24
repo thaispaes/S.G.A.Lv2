@@ -32,7 +32,7 @@ public class StudentDAO {
 
     public boolean insert(Student student){
         
-        conectar();
+        connect();
         PreparedStatement statement = null;
         sql = "INSERT INTO tb_student (student_name, student_login, student_password, student_registration, student_image_perfil, student_email , student_CEP, student_phone, student_school, student_Address, student_module, student_grade, student_course, student_shift) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
@@ -70,7 +70,7 @@ public class StudentDAO {
     
     public boolean update(Student student){
         
-    conectar();
+    connect();
         PreparedStatement statement = null;
         sql = "UPDATE tb_student SET student_name = ? , student_login = ?, student_password = ?, student_registration = ?, student_image_perfil = ?, student_email = ?,  student_CEP = ?, student_phone = ?, student_school = ?, student_Address = ?, student_module = ?, student_grade = ?, student_course = ?, student_shift = ? WHERE id_student = ?;";
         
@@ -110,7 +110,7 @@ public class StudentDAO {
     
     public boolean delet(Student student){
             
-    conectar();
+    connect();
         PreparedStatement statement = null;
         sql = "DELETE FROM tb_student WHERE id_student = ?;";
         
@@ -135,7 +135,7 @@ public class StudentDAO {
 
     public List<Student> selectAll(){
       
-        conectar();
+        connect();
         PreparedStatement statement = null;
         ResultSet result = null;
         sql = "SELECT * FROM tb_student;";
@@ -165,7 +165,7 @@ public class StudentDAO {
     
     public List<Student> search(String pesquisa){
       
-        conectar();
+        connect();
         PreparedStatement statement = null;
         ResultSet result = null;
         sql = "SELECT * FROM tb_student WHERE nome LIKE ? or loguin LIKE ?;";
@@ -200,7 +200,7 @@ public class StudentDAO {
     
     public boolean exist(String pesquisa){
       
-            conectar();
+            connect();
             PreparedStatement statement = null;
             ResultSet result = null;
             sql = "SELECT * FROM tb_student WHERE nome LIKE ? or loguin LIKE ?;";
@@ -225,7 +225,37 @@ public class StudentDAO {
         return exist;
     }
     
-    private void conectar() {
+        public Student exist(String login, String password){
+      
+            connect();
+            PreparedStatement statement = null;
+            ResultSet result = null;
+            sql = "SELECT * FROM student_view WHERE student_password = ? and student_login = ?;";
+            Student student = null;
+            
+        try {
+            
+            statement = connection.prepareStatement(sql);
+            
+            statement.setString(1, password);
+            statement.setString(2, login);
+            
+             result = statement.executeQuery();
+            
+            while(result.next()){
+           
+                student = StudentFactory.generateStudent(result);
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return student;
+    }
+    
+    
+    private void connect() {
      
         connection = ConnectionFactory.getConnection();
 

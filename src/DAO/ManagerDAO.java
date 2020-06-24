@@ -212,33 +212,33 @@ public class ManagerDAO {
         return exist;
     }
     
-    public Manager exist(Manager user){
+    public Manager exist(String login, String password){
       
             connect();
             PreparedStatement statement = null;
             ResultSet result = null;
-            sql = "SELECT * FROM tb_user WHERE user_password LIKE ? and login LIKE ?;";
-            
+            sql = "SELECT * FROM manager_view WHERE manager_password = ? and manager_login = ?;";
+            Manager manager = null;
             
         try {
             
             statement = connection.prepareStatement(sql);
             
-            statement.setString(1, "%"+user.getPassword()+"%");
-            statement.setString(2, "%"+user.getLogin()+"%");
+            statement.setString(1, password);
+            statement.setString(2, login);
             
              result = statement.executeQuery();
             
             while(result.next()){
+           
+                manager = ManagerFactory.generateManager(result);
                 
-                user = ManagerFactory.generateManager(result);
-
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(ManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return user;
+        return manager;
     }
     
     private void connect() {

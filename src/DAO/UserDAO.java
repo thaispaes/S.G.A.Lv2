@@ -28,8 +28,7 @@ public class UserDAO {
     
     private Connection connection;
     private String sql;
-    private static User loggedManeger;
-    private String imageName = "";
+    private static Model.Interface.User loggedUser;
 
     public boolean insert(User client){
         
@@ -137,7 +136,7 @@ public class UserDAO {
         connect();
         PreparedStatement statement = null;
         ResultSet result = null;
-        sql = "SELECT * FROM tb_client;";
+        sql = "SELECT * FROM client_view;";
         List<User> clients = new ArrayList<>();
    
           try {
@@ -167,7 +166,7 @@ public class UserDAO {
         connect();
         PreparedStatement statement = null;
         ResultSet result = null;
-        sql = "SELECT * FROM tb_client WHERE client_name LIKE ? or login LIKE ?;";
+        sql = "SELECT * FROM client_view WHERE client_name LIKE ? or login LIKE ?;";
         List<User> clients = new ArrayList<>();
        
       
@@ -202,7 +201,7 @@ public class UserDAO {
             connect();
             PreparedStatement statement = null;
             ResultSet result = null;
-            sql = "SELECT * FROM tb_client WHERE client_name LIKE ? or login LIKE ?;";
+            sql = "SELECT * FROM client_view WHERE client_name LIKE ? or login LIKE ?;";
             boolean exist = false;
             
             
@@ -224,53 +223,33 @@ public class UserDAO {
         return exist;
     }
     
-    public User exist(User client){
+    public User exist(String login, String password){
       
             connect();
             PreparedStatement statement = null;
             ResultSet result = null;
-            sql = "SELECT * FROM tb_client WHERE client_password LIKE ? and login LIKE ?;";
-            String imageName = "";
+            sql = "SELECT * FROM client_view WHERE client_password = ? and client_login = ?;";
+            User user = null;
             
         try {
             
             statement = connection.prepareStatement(sql);
             
-            statement.setString(1, "%"+client.getPassword()+"%");
-            statement.setString(2, "%"+client.getLogin()+"%");
+            statement.setString(1, password);
+            statement.setString(2, login);
             
              result = statement.executeQuery();
             
             while(result.next()){
-                
- 
-                
-                client.setId(result.getInt("id_client"));
-                client.setName(result.getString("client_name"));
-                client.setLogin(result.getString("client_login"));
-                client.setPassword(result.getString("client_password"));
-                client.setAccessLevel(result.getInt("client_access_level"));
-               
-                imageName = result.getString("");
-                
-                if(ImageFile.exist(imageName) == false){
-                    
-                    client.setPerfilImage(result.getBinaryStream("client_image_perfil"), imageName);
-                              
-                }
-               
-                client.setEmail(result.getString("client_email"));
-                client.setAddress(result.getString("client_address"));
-                client.setCEP(result.getString("client_cep"));
-                client.setPhone(result.getString("client_phone"));
-                client.setAccessLevel(User.ACCESS_MIN);
+           
+                user = UserFactory.generateUser(result);
                 
             }
             
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return client;
+        return user;
     }
     
     private void connect() {
@@ -278,5 +257,12 @@ public class UserDAO {
         connection = ConnectionFactory.getConnection();
 
     }
-    
+
+    public static Model.Interface.User getLoggedUser() {
+        return loggedUser;
+    }
+
+    public static void setLoggedUser(Model.Interface.User loggedUser) {
+        UserDAO.loggedUser = loggedUser;
+    }
 }

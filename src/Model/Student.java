@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Samuel
  */
-public class Student extends Manager{
+public class Student extends Manager implements Model.Interface.User{
     
     private ImageFile imagePerfil;
     private String registration;
