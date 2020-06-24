@@ -11,9 +11,10 @@ import java.io.InputStream;
  *
  * @author Samuel
  */
-public class Manager extends User{
+public class Manager extends User implements Model.Interface.User{
     
     private String school;
+
 
     
     public Manager() {
@@ -27,7 +28,5 @@ public class Manager extends User{
     public void setSchool(String school) {
         this.school = school;
     }
-
-   
     
 }

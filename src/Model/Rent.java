@@ -16,14 +16,14 @@ public class Rent {
     private Long id;
     private Student student;
     private Book book;
-    private Client client;
+    private User client;
     private Time rented;
     private Time returnDate;
     private boolean returned;
     private double penality;
     private String obrservation;
 
-    public Rent(Student student, Book book, Client client, Time rented, Time returnDate, boolean delivered, double penality, String obrservation) {
+    public Rent(Student student, Book book, User client, Time rented, Time returnDate, boolean delivered, double penality, String obrservation) {
         this.student = student;
         this.book = book;
         this.client = client;
@@ -110,11 +110,11 @@ public class Rent {
         this.penality = penality;
     }
 
-    public Client getClient() {
+    public User getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(User client) {
         this.client = client;
     }
 

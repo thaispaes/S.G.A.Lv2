@@ -6,6 +6,7 @@
 package Model;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -20,10 +21,10 @@ public class Book {
     private String author;
     private String publisher;
     private Integer stock;
-    private ImageFile Image;
+    private ArrayList<ImageFile> Image;
     private Time acquired;
 
-    public Book(Long id, String name, String genre, String author, String publisher, String stock, ImageFile Image, Time acquired) {
+    public Book(Long id, String name, String genre, String author, String publisher, String stock, ArrayList<ImageFile> Image, Time acquired) {
         this.id = id;
         this.name = name;
         this.genre = genre;
@@ -96,16 +97,12 @@ public class Book {
         this.stock = stock;
     }
 
-    public ImageFile getImage() {
+    public ArrayList<ImageFile> getImage() {
         return Image;
     }
 
-    public void setImage(ImageFile Image) {
+    public void setImage(ArrayList<ImageFile> Image) {
         this.Image = Image;
-    }
-    
-    public void setImage(InputStream inputS,String name) {
-        this.Image = new ImageFile(inputS, name);
     }
 
     public Time getAcquired() {

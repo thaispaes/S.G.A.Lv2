@@ -23,7 +23,7 @@ import javax.swing.ImageIcon;
  * @author Samuel
  */
 public class ImageFile {
-
+    
     private byte[] bytes;
     private File file;
     private int length ;
@@ -129,7 +129,6 @@ public class ImageFile {
        return search.exists();
     }
     
-
     public byte[] getBytes() {
         return bytes;
     }

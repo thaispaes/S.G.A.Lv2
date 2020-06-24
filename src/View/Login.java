@@ -5,60 +5,21 @@
  */
 package View;
 
-import java.sql.*;
+import Controller.LoginController;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
-import JDBC.ConnectionFactory;
-import java.awt.HeadlessException;
-import javax.swing.JOptionPane;
+public class Login extends javax.swing.JFrame {
 
-public class Loguin extends javax.swing.JFrame {
+    private final LoginController controller;
 
-    Connection conexao = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-
-    public void Logar() {
-        String sql = "select * from tbuser where loguin=? and senha=?";
-
-        try {
-            ps = conexao.prepareStatement(sql);
-            ps.setString(1, txtLoguin.getText());
-            ps.setString(2, txtSenha.getText());
-
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-
-                String perfil = rs.getString(5);
-                
-                if (perfil.equals("Admin")) {
-                    Inicio principal = new Inicio();
-                    principal.setVisible(true);
-                    this.dispose();
-                    Inicio.menIntCadUser.setEnabled(true);
-                } else if("User".equals(perfil)){
-                    Inicio principal = new Inicio();
-                    principal.setVisible(true);
-                    Inicio.menIntCadUser.setVisible(false);
-                    this.dispose();
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "senha e/ou usuário incorreto(s)");
-            }
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
-
-    public Loguin() {
+    public Login() {
+        
         initComponents();
-        conexao = ConnectionFactory.getConnection();
-        lblConexao.setText("Desconectado");
-        if (conexao != null) {
-            lblConexao.setText("Conectado");
-        } else {
-
-        }
+        
+        controller = new LoginController(this);
     }
 
     /**
@@ -146,7 +107,7 @@ public class Loguin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bntStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntStartActionPerformed
-        Logar();
+        controller.logInto();
     }//GEN-LAST:event_bntStartActionPerformed
 
     /**
@@ -166,20 +127,21 @@ public class Loguin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Loguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Loguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Loguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Loguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Loguin().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
@@ -193,4 +155,60 @@ public class Loguin extends javax.swing.JFrame {
     private javax.swing.JTextField txtLoguin;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getBntStart() {
+        return bntStart;
+    }
+
+    public void setBntStart(JButton bntStart) {
+        this.bntStart = bntStart;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public void setjLabel1(JLabel jLabel1) {
+        this.jLabel1 = jLabel1;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public void setjLabel2(JLabel jLabel2) {
+        this.jLabel2 = jLabel2;
+    }
+
+    public JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public void setjLabel3(JLabel jLabel3) {
+        this.jLabel3 = jLabel3;
+    }
+
+    public JLabel getLblConexao() {
+        return lblConexao;
+    }
+
+    public void setLblConexao(JLabel lblConexao) {
+        this.lblConexao = lblConexao;
+    }
+
+    public JTextField getTxtLoguin() {
+        return txtLoguin;
+    }
+
+    public void setTxtLoguin(JTextField txtLoguin) {
+        this.txtLoguin = txtLoguin;
+    }
+
+    public JPasswordField getTxtSenha() {
+        return txtSenha;
+    }
+
+    public void setTxtSenha(JPasswordField txtSenha) {
+        this.txtSenha = txtSenha;
+    }
 }
