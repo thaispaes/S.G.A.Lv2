@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Factory.UserFactory;
 import JDBC.ConnectionFactory;
 import Model.ImageFile;
 import Model.User;
@@ -34,7 +35,7 @@ public class UserDAO {
         
         connect();
         PreparedStatement statement = null;
-        sql = "INSERT INTO tb_client (client_name, client_login, client_password, client_access_level, client_image_perfil, client_image_name , client_email, client_address, client_cep, client_phone) VALUES (?,?,?,?,?,?,?,?,?,?);";
+        sql = "INSERT INTO tb_client (client_name, client_login, client_password, client_access_level, client_image_perfil, client_email, client_address, client_cep, client_phone) VALUES (?,?,?,?,?,?,?,?,?);";
 
           try {
               
@@ -47,14 +48,13 @@ public class UserDAO {
             
             if(client.getPerfilImage() != null){
                 
-                statement.setBinaryStream(5, client.getPerfilImage().getInput());
-                statement.setString(6, client.getPerfilImage().getFile().getName());
+                statement.setString(5, client.getPerfilImage().getFile().getName());
             }
             
-            statement.setString(7, client.getEmail());
-            statement.setString(8, client.getAddress());
-            statement.setString(9, client.getCEP());
-            statement.setString(10, client.getPhone());
+            statement.setString(6, client.getEmail());
+            statement.setString(7, client.getAddress());
+            statement.setString(8, client.getCEP());
+            statement.setString(9, client.getPhone());
             statement.execute();
             
             return true;
@@ -72,27 +72,27 @@ public class UserDAO {
         
     connect();
         PreparedStatement statement = null;
-        sql = "UPDATE tb_client SET client_name = ?, client_login = ?, client_password = ?, client_access_level = ?, client_image_perfil = ?,client_image_name = ? , client_email = ?, client_address = ?, client_cep = ?, client_phone = ? WHERE id_client = ?;";
+        sql = "UPDATE tb_client SET client_name = ?, client_login = ?, client_password = ?, client_access_level = ?, client_image_perfil = ?, client_email = ?, client_address = ?, client_cep = ?, client_phone = ? WHERE id_client = ?;";
         
            
           try {
               
             statement = connection.prepareStatement(sql);
-            
+                      
             statement.setString(1, client.getName());
             statement.setString(2, client.getLogin());
             statement.setString(3, client.getPassword());
             statement.setInt(4, client.getAccessLevel());
             
             if(client.getPerfilImage() != null){
-                statement.setBinaryStream(5, client.getPerfilImage().getInput());
-                statement.setString(6, client.getPerfilImage().getFile().getName());
+                
+                statement.setString(5, client.getPerfilImage().getFile().getName());
             }
-            statement.setString(7, client.getEmail());
-            statement.setString(8, client.getAddress());
-            statement.setString(9, client.getCEP());
-            statement.setString(10, client.getPhone());
-            statement.setInt(12, client.getId().intValue());
+            
+            statement.setString(6, client.getEmail());
+            statement.setString(7, client.getAddress());
+            statement.setString(8, client.getCEP());
+            statement.setString(9, client.getPhone());
             
             statement.execute();
             
@@ -148,27 +148,7 @@ public class UserDAO {
             
             while(result.next()){
                 
-                User client = new User();
-                
-                client.setId(result.getInt("id_client"));
-                client.setName(result.getString("client_name"));
-                client.setLogin(result.getString("client_login"));
-                client.setPassword(result.getString("client_password"));
-                client.setAccessLevel(result.getInt("client_access_level"));
-               
-                String imageName = result.getString("client_image_name");
-                
-                if(ImageFile.exist(imageName) == false){
-                    
-                    client.setPerfilImage(result.getBinaryStream("client_image_perfil"), imageName);
-                              
-                }
-               
-                client.setEmail(result.getString("client_email"));
-                client.setAddress(result.getString("client_address"));
-                client.setCEP(result.getString("client_cep"));
-                client.setPhone(result.getString("client_phone"));
-                client.setAccessLevel(User.ACCESS_MIN);
+                User client = UserFactory.generateUser(result);
                 
                 clients.add(client);
             }
@@ -181,7 +161,7 @@ public class UserDAO {
           }
        return clients;
     }
-    
+
     public List<User> search(String pesquisa){
       
         connect();
@@ -202,27 +182,7 @@ public class UserDAO {
             
             while(result.next()){
                 
-               User client = new User();
-                
-                client.setId(result.getInt("id_client"));
-                client.setName(result.getString("client_name"));
-                client.setLogin(result.getString("client_login"));
-                client.setPassword(result.getString("client_password"));
-                client.setAccessLevel(result.getInt("client_access_level"));
-               
-                String imageName = result.getString("client_image_name");
-                
-                if(ImageFile.exist(imageName) == false){
-                    
-                    client.setPerfilImage(result.getBinaryStream("client_image_perfil"), imageName);
-                              
-                }
-               
-                client.setEmail(result.getString("client_email"));
-                client.setAddress(result.getString("client_address"));
-                client.setCEP(result.getString("client_cep"));
-                client.setPhone(result.getString("client_phone"));
-                client.setAccessLevel(User.ACCESS_MIN);
+               User client = UserFactory.generateUser(result);
                 
                 clients.add(client);
 
@@ -291,7 +251,7 @@ public class UserDAO {
                 client.setPassword(result.getString("client_password"));
                 client.setAccessLevel(result.getInt("client_access_level"));
                
-                imageName = result.getString("client_image_name");
+                imageName = result.getString("");
                 
                 if(ImageFile.exist(imageName) == false){
                     
