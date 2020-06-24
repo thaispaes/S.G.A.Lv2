@@ -12,9 +12,9 @@ import DAO.UserDAO;
 import Model.Manager;
 import Model.Student;
 import Model.User;
+import View.Dialoguer;
 import View.Login;
 import View.Start;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -76,7 +76,7 @@ public class LoginController {
         }
         
         if(logged == false){
-            JOptionPane.showMessageDialog(view, "Usuário nao encntrado ou inexistente");
+            Dialoguer.message(view, "Usuário nao encntrado ou inexistente");
         }
 
     }
