@@ -195,7 +195,7 @@ CREATE TABLE `tb_client` (
   `client_phone` varchar(25) NOT NULL,
   `cliente_login` varchar(50) NOT NULL,
   `client_password` varchar(50) NOT NULL,
-  `client_image_perfil` int(11) DEFAULT NULL,
+  `client_image_perfil` varchar(50) DEFAULT NULL,
   `client_email` tinytext,
   `id_client` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id_client`),
@@ -298,7 +298,7 @@ CREATE TABLE `tb_student` (
   `student_shift` varchar(25) NOT NULL,
   `student_login` varchar(100) NOT NULL,
   `student_password` varchar(100) NOT NULL,
-  `student_image_perfil` int(11) DEFAULT NULL,
+  `student_image_perfil` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_student`),
   UNIQUE KEY `senha` (`student_password`),
   UNIQUE KEY `student_password` (`student_password`)
@@ -327,7 +327,7 @@ CREATE TABLE `tb_user` (
   `user_login` varchar(100) NOT NULL,
   `user_password` varchar(100) NOT NULL,
   `user_access_level` int(11) NOT NULL,
-  `user_image_perfil` int(11) DEFAULT NULL,
+  `user_image_perfil` varchar(50) DEFAULT NULL,
   `user_email` tinytext,
   `user_address` tinytext NOT NULL,
   `user_cep` varchar(30) DEFAULT NULL,
@@ -413,7 +413,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `client_view` AS select `tb_client`.`client_name` AS `client_name`,`tb_client`.`client_CEP` AS `client_CEP`,`tb_client`.`client_address` AS `client_address`,`tb_client`.`client_phone` AS `client_phone`,`tb_client`.`cliente_login` AS `cliente_login`,`tb_client`.`client_password` AS `client_password`,`tb_client`.`client_image_perfil` AS `client_image_perfil`,`tb_client`.`client_email` AS `client_email`,`tb_client`.`id_client` AS `id_client`,`tb_images`.`id_images` AS `id_images`,`tb_images`.`image_name` AS `image_name`,`tb_images`.`image_bytes` AS `image_bytes`,`tb_images`.`image_way` AS `image_way`,`tb_images`.`id_image_book` AS `id_image_book` from (`tb_client` left join `tb_images` on((`tb_client`.`client_image_perfil` = `tb_images`.`id_image_book`))) */;
+/*!50001 VIEW `client_view` AS select `tb_client`.`client_name` AS `client_name`,`tb_client`.`client_CEP` AS `client_CEP`,`tb_client`.`client_address` AS `client_address`,`tb_client`.`client_phone` AS `client_phone`,`tb_client`.`cliente_login` AS `cliente_login`,`tb_client`.`client_password` AS `client_password`,`tb_client`.`client_image_perfil` AS `client_image_perfil`,`tb_client`.`client_email` AS `client_email`,`tb_client`.`id_client` AS `id_client`,`tb_images`.`id_images` AS `id_images`,`tb_images`.`image_name` AS `image_name`,`tb_images`.`image_bytes` AS `image_bytes`,`tb_images`.`image_way` AS `image_way`,`tb_images`.`id_image_book` AS `id_image_book` from (`tb_client` left join `tb_images` on((`tb_client`.`client_image_perfil` = convert(`tb_images`.`image_name` using utf8)))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -449,7 +449,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `student_view` AS select `tb_student`.`id_student` AS `id_student`,`tb_student`.`student_name` AS `student_name`,`tb_student`.`student_registration` AS `student_registration`,`tb_student`.`student_email` AS `student_email`,`tb_student`.`student_phone` AS `student_phone`,`tb_student`.`student_CEP` AS `student_CEP`,`tb_student`.`student_address` AS `student_address`,`tb_student`.`student_module` AS `student_module`,`tb_student`.`student_grade` AS `student_grade`,`tb_student`.`student_course` AS `student_course`,`tb_student`.`student_school` AS `student_school`,`tb_student`.`student_shift` AS `student_shift`,`tb_student`.`student_login` AS `student_login`,`tb_student`.`student_password` AS `student_password`,`tb_student`.`student_image_perfil` AS `student_image_perfil`,`tb_images`.`id_images` AS `id_images`,`tb_images`.`image_name` AS `image_name`,`tb_images`.`image_bytes` AS `image_bytes`,`tb_images`.`image_way` AS `image_way`,`tb_images`.`id_image_book` AS `id_image_book` from (`tb_student` left join `tb_images` on((`tb_student`.`student_image_perfil` = `tb_images`.`id_image_book`))) */;
+/*!50001 VIEW `student_view` AS select `tb_student`.`id_student` AS `id_student`,`tb_student`.`student_name` AS `student_name`,`tb_student`.`student_registration` AS `student_registration`,`tb_student`.`student_email` AS `student_email`,`tb_student`.`student_phone` AS `student_phone`,`tb_student`.`student_CEP` AS `student_CEP`,`tb_student`.`student_address` AS `student_address`,`tb_student`.`student_module` AS `student_module`,`tb_student`.`student_grade` AS `student_grade`,`tb_student`.`student_course` AS `student_course`,`tb_student`.`student_school` AS `student_school`,`tb_student`.`student_shift` AS `student_shift`,`tb_student`.`student_login` AS `student_login`,`tb_student`.`student_password` AS `student_password`,`tb_student`.`student_image_perfil` AS `student_image_perfil`,`tb_images`.`id_images` AS `id_images`,`tb_images`.`image_name` AS `image_name`,`tb_images`.`image_bytes` AS `image_bytes`,`tb_images`.`image_way` AS `image_way`,`tb_images`.`id_image_book` AS `id_image_book` from (`tb_student` left join `tb_images` on((`tb_student`.`student_image_perfil` = convert(`tb_images`.`image_name` using utf8)))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -467,7 +467,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `user_view` AS select `tb_user`.`id_user` AS `id_user`,`tb_user`.`user_name` AS `user_name`,`tb_user`.`user_login` AS `user_login`,`tb_user`.`user_password` AS `user_password`,`tb_user`.`user_access_level` AS `user_access_level`,`tb_user`.`user_image_perfil` AS `user_image_perfil`,`tb_user`.`user_email` AS `user_email`,`tb_user`.`user_address` AS `user_address`,`tb_user`.`user_cep` AS `user_cep`,`tb_user`.`user_phone` AS `user_phone`,`tb_user`.`user_school` AS `user_school`,`tb_images`.`id_images` AS `id_images`,`tb_images`.`image_name` AS `image_name`,`tb_images`.`image_bytes` AS `image_bytes`,`tb_images`.`image_way` AS `image_way`,`tb_images`.`id_image_book` AS `id_image_book` from (`tb_user` left join `tb_images` on((`tb_user`.`user_image_perfil` = `tb_images`.`id_image_book`))) */;
+/*!50001 VIEW `user_view` AS select `tb_user`.`id_user` AS `id_user`,`tb_user`.`user_name` AS `user_name`,`tb_user`.`user_login` AS `user_login`,`tb_user`.`user_password` AS `user_password`,`tb_user`.`user_access_level` AS `user_access_level`,`tb_user`.`user_image_perfil` AS `user_image_perfil`,`tb_user`.`user_email` AS `user_email`,`tb_user`.`user_address` AS `user_address`,`tb_user`.`user_cep` AS `user_cep`,`tb_user`.`user_phone` AS `user_phone`,`tb_user`.`user_school` AS `user_school`,`tb_images`.`id_images` AS `id_images`,`tb_images`.`image_name` AS `image_name`,`tb_images`.`image_bytes` AS `image_bytes`,`tb_images`.`image_way` AS `image_way`,`tb_images`.`id_image_book` AS `id_image_book` from (`tb_user` left join `tb_images` on((`tb_user`.`user_image_perfil` = convert(`tb_images`.`image_name` using utf8)))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -481,4 +481,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-24 12:25:50
+-- Dump completed on 2020-06-24 15:39:39
