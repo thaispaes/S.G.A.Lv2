@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Factory.ManagerFactory;
 import JDBC.ConnectionFactory;
 import Model.ImageFile;
 import Model.Manager;
@@ -145,27 +146,7 @@ public class ManagerDAO {
             
             while(result.next()){
                 
-                Manager user = new Manager();
-                
-                user.setId(result.getInt("id_user"));
-                user.setName(result.getString("user_name"));
-                user.setLogin(result.getString("user_login"));
-                user.setPassword(result.getString("user_password"));
-                user.setAccessLevel(result.getInt("user_access_level"));
-               
-                String imageName = result.getString("user_image_name");
-                
-                if(ImageFile.exist(imageName) == false){
-                    
-                    user.setPerfilImage(result.getBinaryStream("user_image_perfil"), imageName);
-                              
-                }
-               
-                user.setEmail(result.getString("user_email"));
-                user.setAddress(result.getString("user_address"));
-                user.setCEP(result.getString("user_cep"));
-                user.setPhone(result.getString("user_phone"));
-                user.setSchool(result.getString("user_school"));
+                Manager user = ManagerFactory.generateManager(result);
                 
                 users.add(user);
             }
@@ -199,27 +180,7 @@ public class ManagerDAO {
             
             while(result.next()){
                 
-               Manager user = new Manager();
-                
-                user.setId(result.getInt("id_user"));
-                user.setName(result.getString("user_name"));
-                user.setLogin(result.getString("user_login"));
-                user.setPassword(result.getString("user_password"));
-                user.setAccessLevel(result.getInt("user_access_level"));
-               
-                String imageName = result.getString("user_image_name");
-                
-                if(ImageFile.exist(imageName) == false){
-                    
-                    user.setPerfilImage(result.getBinaryStream("user_image_perfil"), imageName);
-                              
-                }
-               
-                user.setEmail(result.getString("user_email"));
-                user.setAddress(result.getString("user_address"));
-                user.setCEP(result.getString("user_cep"));
-                user.setPhone(result.getString("user_phone"));
-                user.setSchool(result.getString("user_school"));
+               Manager user = ManagerFactory.generateManager(result);
                 
                 users.add(user);
 
