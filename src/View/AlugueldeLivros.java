@@ -6,7 +6,6 @@
 package View;
 
 import JDBC.ConnectionFactory;
-import br.com.SGAL.table.model.data;
 import javax.swing.JOptionPane;
 import java.sql.*;
 import java.util.*;

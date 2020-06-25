@@ -1,7 +1,7 @@
 package View;
 
 import javax.swing.JOptionPane;
-import View.CadLivros;
+import View.BookRegistrationView;
 
 public class Start extends javax.swing.JFrame {
 
@@ -174,7 +174,7 @@ public class Start extends javax.swing.JFrame {
     }//GEN-LAST:event_menIntSairActionPerformed
 
     private void menIntCadLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menIntCadLivrosActionPerformed
-       CadLivros cadlivros = new CadLivros();
+       BookRegistrationView cadlivros = new BookRegistrationView();
        cadlivros.setVisible(true);
        Desktop.add(cadlivros);
     }//GEN-LAST:event_menIntCadLivrosActionPerformed
