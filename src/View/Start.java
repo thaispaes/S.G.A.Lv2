@@ -35,6 +35,7 @@ public class Start extends javax.swing.JFrame {
         jMenu5.setText("jMenu5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Oasis - Inicio");
 
         Desktop.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -48,6 +49,8 @@ public class Start extends javax.swing.JFrame {
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 669, Short.MAX_VALUE)
         );
+
+        Sair.setToolTipText("");
 
         jMenu4.setText("Cadastros");
 

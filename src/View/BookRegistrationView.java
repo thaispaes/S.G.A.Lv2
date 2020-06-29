@@ -77,6 +77,8 @@ public class BookRegistrationView extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
+        setTitle("Oasis - Cadástro de Lívros");
+        setToolTipText("");
 
         jLabel1.setText("Nome do Livro:");
 
