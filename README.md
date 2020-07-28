@@ -10,4 +10,15 @@
  :warning: __A aplicação poderá sofrer alterações no decorrer do desenvolvimento e pode ser implementada em outras ETE's__
 
 ## :balloon: Qual plataforma de desenvolvimento?
-  Para o desenvolvimento está sendo utilizado a ide Netbeans, com a linguagem de programação Java e também utilizando conceitos de Material design e clean code 
+  Para o desenvolvimento está sendo utilizado a ide Netbeans. 
+  
+## 🛠 Skills
+
+Nesta aplicação está sendo utilizada algumas tecnologias como:
+
+- Java
+- Design-Patterns
+- Clean Code
+- Material Design
+
+## 📄 License
